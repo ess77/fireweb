@@ -1,0 +1,142 @@
+{{ 'component-product-pack.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-pack.js' | asset_url }}" defer="defer"></script>
+
+{% if quantity1 != 0 or quantity2 != 0 %}
+    <product-pack-form class="{% if offdesk %} offdesk{% endif %}{% if offmob %} offmob{% endif %}">
+        {% assign title = product.title %}
+        {% if product_title_small != blank %}
+            {% assign title = product_title_small %}
+            {% assign title1 = product_title1_small %}
+            {% assign title2 = product_title2_small %}
+        {% endif %}
+
+        <div class="pack-wrapper {% if style == "inbundle" %}bundle-style-wrap {% endif %} product-block-margin-{{ margin }}">
+            <div class="pack {% if style == "inbundle" %}bundle-style-pack {% endif %}pack-selected" data-quantity="1">
+                <img
+                  srcset="{%- if product.featured_media.preview_image.width >= 275 -%}{{ product.featured_media.preview_image | image_url: width: 275 }} 275w,{%- endif -%}
+                  {%- if product.featured_media.preview_image.width >= 550 -%}{{ product.featured_media.preview_image | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if product.featured_media.preview_image.width >= 710 -%}{{ product.featured_media.preview_image | image_url: width: 710 }} 710w,{%- endif -%}
+                  {%- if product.featured_media.preview_image.width >= 1420 -%}{{ product.featured_media.preview_image | image_url: width: 1420 }} 1420w,{%- endif -%}
+                  {{ product.featured_media.preview_image | image_url }} {{ product.featured_media.preview_image.width }}w"
+                  src="{{ product.featured_media.preview_image | image_url: width: 550 }}"
+                  sizes="(min-width: 990px) {% if section.blocks.size <= 2 %}710px{% else %}550px{% endif %},
+                  (min-width: 750px) {% if section.blocks.size == 1 %}710px{% else %}550px{% endif %},
+                  calc(100vw - 30px)"
+                  alt="{{ product.featured_media.preview_image.alt }}"
+                  width="{{ product.featured_media.preview_image.width }}"
+                  loading="lazy"
+                  class="pack-image{% if style == "inbundle" %} bundle-style-image{% endif %}"
+                >
+                <p class="pack-product-title{% if style == "inbundle" %} bundle-style-title{% endif %}">1 {{ title }}</p>
+                <div class="pack-price-container{% if style == "inbundle" %} bundle-style-price{% endif %}">
+                    <p class="pack-price-normal">{{ product.price | money_with_currency }}</p>
+                </div>
+            </div>
+
+            {% if quantity1 != 0 %}
+                {% assign promoValue1 = 100 | minus: promo1 %}
+                <div class="pack {% if style == "inbundle" %}bundle-style-pack {% endif %}" data-quantity="{{ quantity1 }}">
+                    <span class="pack-reduction{% if style == "inbundle" %} bundle-style-reduction{% endif %}">{{ promo_text_before }} {{ promo1 }}% {{ promo_text_after }}</span>
+                    {% if image1 != blank %}
+                        <img
+                          srcset="{%- if image1.width >= 275 -%}{{ image1 | image_url: width: 275 }} 275w,{%- endif -%}
+                          {%- if image1.width >= 550 -%}{{ image1 | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if image1.width >= 710 -%}{{ image1 | image_url: width: 710 }} 710w,{%- endif -%}
+                          {%- if image1.width >= 1420 -%}{{ image1 | image_url: width: 1420 }} 1420w,{%- endif -%}
+                          {{ image1 | image_url }} {{ image1.width }}w"
+                          src="{{ image1 | image_url: width: 550 }}"
+                          sizes="(min-width: 990px) {% if section.blocks.size <= 2 %}710px{% else %}550px{% endif %},
+                          (min-width: 750px) {% if section.blocks.size == 1 %}710px{% else %}550px{% endif %},
+                          calc(100vw - 30px)"
+                          alt="{{ image1.alt }}"
+                          width="{{ image1.width }}"
+                          loading="lazy"
+                          class="pack-image{% if style == "inbundle" %} bundle-style-image{% endif %}"
+                        >
+                    {% else %}
+                        <img
+                          srcset="{%- if product.featured_media.preview_image.width >= 275 -%}{{ product.featured_media.preview_image | image_url: width: 275 }} 275w,{%- endif -%}
+                          {%- if product.featured_media.preview_image.width >= 550 -%}{{ product.featured_media.preview_image | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if product.featured_media.preview_image.width >= 710 -%}{{ product.featured_media.preview_image | image_url: width: 710 }} 710w,{%- endif -%}
+                          {%- if product.featured_media.preview_image.width >= 1420 -%}{{ product.featured_media.preview_image | image_url: width: 1420 }} 1420w,{%- endif -%}
+                          {{ product.featured_media.preview_image | image_url }} {{ product.featured_media.preview_image.width }}w"
+                          src="{{ product.featured_media.preview_image | image_url: width: 550 }}"
+                          sizes="(min-width: 990px) {% if section.blocks.size <= 2 %}710px{% else %}550px{% endif %},
+                          (min-width: 750px) {% if section.blocks.size == 1 %}710px{% else %}550px{% endif %},
+                          calc(100vw - 30px)"
+                          alt="{{ product.featured_media.preview_image.alt }}"
+                          width="{{ product.featured_media.preview_image.width }}"
+                          loading="lazy"
+                          class="pack-image{% if style == "inbundle" %} bundle-style-image{% endif %}"
+                        >
+                    {% endif %}
+                    <p class="pack-product-title{% if style == "inbundle" %} bundle-style-title{% endif %}">{{ quantity1 }} {{ title1 }}</p>
+                    <div class="pack-price-container{% if style == "inbundle" %} bundle-style-price{% endif %}">
+                        <p class="pack-price-normal">{{ product.price | times: quantity1 | times: promoValue1 | divided_by: 100  | money_with_currency }}</p>
+                        {% if promoValue1 != 100 %}
+                            <p class="pack-compared-price">{{ product.price | times: quantity1 | money_with_currency }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            
+            {% if quantity2 != 0 %}
+                {% assign promoValue2 = 100 | minus: promo2 %}
+                <div class="pack {% if style == "inbundle" %}bundle-style-pack {% endif %}" data-quantity="{{ quantity2 }}">
+                    <span class="pack-reduction{% if style == "inbundle" %} bundle-style-reduction{% endif %}">{{ promo_text_before }} {{ promo2 }}% {{ promo_text_after }}</span>
+                    {% if image2 != blank %}
+                        <img
+                          srcset="{%- if image2.width >= 275 -%}{{ image2 | image_url: width: 275 }} 275w,{%- endif -%}
+                          {%- if image2.width >= 550 -%}{{ image2 | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if image2.width >= 710 -%}{{ image2 | image_url: width: 710 }} 710w,{%- endif -%}
+                          {%- if image2.width >= 1420 -%}{{ image2 | image_url: width: 1420 }} 1420w,{%- endif -%}
+                          {{ image2 | image_url }} {{ image2.width }}w"
+                          src="{{ image2 | image_url: width: 550 }}"
+                          sizes="(min-width: 990px) {% if section.blocks.size <= 2 %}710px{% else %}550px{% endif %},
+                          (min-width: 750px) {% if section.blocks.size == 1 %}710px{% else %}550px{% endif %},
+                          calc(100vw - 30px)"
+                          alt="{{ image2.alt }}"
+                          width="{{ image2.width }}"
+                          loading="lazy"
+                          class="pack-image{% if style == "inbundle" %} bundle-style-image{% endif %}"
+                        >
+                    {% else %}
+                        <img
+                          srcset="{%- if product.featured_media.preview_image.width >= 275 -%}{{ product.featured_media.preview_image | image_url: width: 275 }} 275w,{%- endif -%}
+                          {%- if product.featured_media.preview_image.width >= 550 -%}{{ product.featured_media.preview_image | image_url: width: 550 }} 550w,{%- endif -%}
+                          {%- if product.featured_media.preview_image.width >= 710 -%}{{ product.featured_media.preview_image | image_url: width: 710 }} 710w,{%- endif -%}
+                          {%- if product.featured_media.preview_image.width >= 1420 -%}{{ product.featured_media.preview_image | image_url: width: 1420 }} 1420w,{%- endif -%}
+                          {{ product.featured_media.preview_image | image_url }} {{ product.featured_media.preview_image.width }}w"
+                          src="{{ product.featured_media.preview_image | image_url: width: 550 }}"
+                          sizes="(min-width: 990px) {% if section.blocks.size <= 2 %}710px{% else %}550px{% endif %},
+                          (min-width: 750px) {% if section.blocks.size == 1 %}710px{% else %}550px{% endif %},
+                          calc(100vw - 30px)"
+                          alt="{{ product.featured_media.preview_image.alt }}"
+                          width="{{ product.featured_media.preview_image.width }}"
+                          loading="lazy"
+                          class="pack-image{% if style == "inbundle" %} bundle-style-image{% endif %}"
+                        >
+                    {% endif %}
+                    <p class="pack-product-title{% if style == "inbundle" %} bundle-style-title{% endif %}">{{ quantity2 }} {{ title2 }}</p>
+                    <div class="pack-price-container{% if style == "inbundle" %} bundle-style-price{% endif %}">
+                        <p class="pack-price-normal">{{ product.price | times: quantity2 | times: promoValue2 | divided_by: 100  | money_with_currency }}</p>
+                        {% if promoValue2 != 100 %}
+                            <p class="pack-compared-price">{{ product.price | times: quantity2 | money_with_currency }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </product-pack-form>
+    <style>
+        {% if quantity1 != 0 and quantity2 != 0 %}
+            .pack {
+                width: 33%;
+            }
+        {% else %}
+            .pack {
+                width: 50%;
+            }
+        {% endif %}
+    </style>
+{% endif %}

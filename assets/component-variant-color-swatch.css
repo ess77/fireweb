@@ -1,0 +1,44 @@
+/*.colorSwatch {
+  width: 40px;
+  height: 40px;
+  padding: 0 !important;
+}
+
+.product-form__input input[type='radio'] + .colorSwatch {
+  border: 1px solid white;
+}
+
+.product-form__input input[type='radio']:checked + .colorSwatch {
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #000;
+}*/
+
+/* Nouvelle version Fireweb */
+/* Image Swatch Texture et Swatch Color */
+.product-form__input input[type="radio"] + .colorSwatch {
+  border: 3px solid #f4f5ff; /* Changez ce code hexadécimal pour changer la couleur de la variante non active/non sélectionnée */
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+.product-form__input input[type="radio"]:checked + .colorSwatch,
+.product-form__input input[type="radio"]:hover + .colorSwatch {
+  border: 3px solid #ccd1d1; /* Changez ce code hexadécimal pour changer la couleur de la variante active/sélectionnée */
+}
+.product-form__input input[type="radio"] + .swatch {
+  border: 3px solid #f4f5ff; /* Changez ce code hexadécimal pour changer la couleur de la variante non active/non sélectionnée */
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  color: #000;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.product-form__input input[type="radio"]:checked + .swatch,
+.product-form__input input[type="radio"]:hover + .swatch {
+  border: 3px solid #ccd1d1; /* Changez ce code hexadécimal pour changer la couleur de la variante active/sélectionnée */
+  background: none;
+}
+
+

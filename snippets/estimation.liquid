@@ -1,0 +1,77 @@
+{% style %}
+.livraison-estime-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.livraison-estime-container {
+  fill: currentColor;
+}
+#livraison-estime p {
+  font-size: .875em;
+}
+@media screen and (max-width: 640px) {
+      #livraison-estime p {
+         font-size: .875em;
+      }
+    }
+  
+{% endstyle %}
+
+<div class="livraison-estime-container product-block-margin-{{ block.settings.margin }}{% if block.settings.class != blank %} {{ block.settings.class }}{% endif %}{% if block.settings.offdesk-bloc %} offdesk{% endif %}{% if block.settings.offmob-bloc %} offmob{% endif %}">
+{% render 'icon-accordion', icon: block.settings.icon %}
+<div class="livraison-estime-content">
+    <div id="livraison-estime" style="margin: 0;"><p id="livraison-estime-inner" style="margin: 0;display: block;"></p></div>   
+</div>  
+</div>
+
+
+<script>
+    Date.prototype.addDays = function (days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    }
+
+    var date = new Date();
+    var format = "true";
+    var formatDate;
+    
+    if (format === "{{ block.settings.formatenglish }}") {
+        formatDate = function (date) {
+            var month = addZero(date.getMonth() + 1);
+            var day = addZero(date.getDate());
+            let formatted_date = month + "/" + day
+            return formatted_date;
+        }
+    } else {
+        formatDate = function (date) {
+            var day = addZero(date.getDate());
+            var month = addZero(date.getMonth() + 1);
+            let formatted_date = day + "/" + month
+            return formatted_date;
+        }
+    }
+    
+    function addZero(number) {
+        if (String(number).length == 1) {
+            number = "0" + number;
+        }
+        return number;
+}
+  
+    document.getElementById('livraison-estime-inner').innerHTML = "{{ block.settings.debut }} :&nbsp;" + `<strong style="color: {{ block.settings.colorestimation }};margin-right: 3px;font-weight:bold;"> ${formatDate(date.addDays({{ block.settings.min }}))}</strong> ` + " {{ block.settings.fin }} " + `<strong style="color: {{ block.settings.colorestimation }};margin-left: 3px;font-weight:bold;">${formatDate(date.addDays({{ block.settings.max }}))}</strong>`;
+
+    var deliveryGuide = document.querySelector('.delivery-guide');
+    if (deliveryGuide) {
+      deliveryGuide.addEventListener('click', function () {
+        document.querySelector('.livraison').click();
+    });
+  }
+</script>
+
+

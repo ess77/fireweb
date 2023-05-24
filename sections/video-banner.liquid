@@ -1,0 +1,387 @@
+{% style %}
+  {% render 'section-style' %}
+
+  .youtube-bg {
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.section_height_desktop }}vh;
+    overflow: hidden;
+  }
+
+  .youtube-bg #player {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: {{ section.settings.width-min }}%;
+    min-height: {{ section.settings.height-min }}%;
+    width: auto;
+    height: auto;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  .youtube-bg .ytbackground__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 750px) {
+    .youtube-bg {
+      height: {{ section.settings.section_height }}vh;
+    }
+  }
+
+  .ytbackground__box {background: transparent;}
+
+  .ytbackground__box > .yt__buttons {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .ytbackground__box > * + .yt__buttons--multiple {
+    display: flex;
+    max-width: auto;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+  }
+{% endstyle %}
+
+{%- assign video_id = section.settings.vlink | split: 'v=' -%}
+{%- assign video_id = video_id[1] | split: '&' | first -%}
+
+<div class="youtube-bg">
+  <div id="player" data-id="{{ video_id }}"></div>
+  <div class="ytbackground__content ytbackground__content--{{ section.settings.desktop_text_box_position }} page-width">
+    <div class="ytbackground__box color-{{ section.settings.color_scheme }}">
+      {% if section.settings.heading != blank %}
+      <{{ section.settings.heading_tag }} {% if settings.effect_apply_title_enable%} data-aos="{{ settings.animation_title_name }}"{% endif %} class="ytbackground__heading ytbg-{{ section.id }} {{ section.settings.heading_size }}">
+        {{ section.settings.heading | escape }}
+          <div class="fe_h2_svg"><span style="fill:{{ section.settings.colorfeh2 }}; width:{{ section.settings.widthfeh2 }}rem;" {% if settings.effect_apply_enable%} data-aos="{{ settings.animation_name }}" data-aos-delay="500"{% endif %}> {%if section.settings.custom_svg_fe != blank %} {{ section.settings.custom_svg_fe }}{% endif %}</span>
+            </div>
+      </{{ section.settings.heading_tag }}>
+      {% endif %}
+      {% if section.settings.text != blank %}
+      <p {% if settings.effect_apply_content_enable%} data-aos="{{ settings.animation_content_name }}" data-aos-delay="800"{% endif %} class="ytbackground__text ytbgtxt-{{ section.id }}">
+        {{ section.settings.text | escape }}
+      </p>
+      {% endif %}
+      {% if section.settings.button_label_1 != blank or section.settings.button_label_2 != blank %}
+      <div {% if settings.effect_apply_btn_enable%} data-aos="{{ settings.animation_btn_name }}" data-aos-delay="1000"{% endif %} class="yt__buttons{% if section.settings.button_label_1 != blank and section.settings.button_link_1 != blank and section.settings.button_label_2 != blank and section.settings.button_link_2 != blank %} yt__buttons--multiple{% endif %}">
+        {%- if section.settings.button_label_1 != blank -%}
+          <a{% if section.settings.button_link_1 != blank %} href="{{ section.settings.button_link_1 }}"{% endif %} class="button button--{{ section.settings.button1_style }}"{% if section.settings.button_link_1 == blank %} aria-disabled="true"{% endif %}>{{ section.settings.button_label_1 | escape }}</a>
+        {%- endif -%}
+        {%- if section.settings.button_label_2 != blank -%}
+          <a{% if section.settings.button_link_2 != blank %} href="{{ section.settings.button_link_2 }}"{% endif %} class="button button--{{ section.settings.button2_style }}"{% if section.settings.button_link_2 == blank %} aria-disabled="true"{% endif %}>{{ section.settings.button_label_2 | escape }}</a>
+        {%- endif -%}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      width: '100%',
+      height: '100%',
+      playerVars: {
+        autoplay: 1,
+        loop: 1,
+        controls: 0,
+        showinfo: 0,
+        autohide: 1,
+        modestbranding: 1,
+        mute: 1,
+        suggestedQuality: 'default',
+        origin: 'https://www.dublinseo.net'
+      },
+      videoId: document.getElementById('player').dataset.id,
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    event.target.playVideo();
+    player.mute();
+  }
+
+  var done = false;
+
+  function onPlayerStateChange(e) {
+    var id = document.getElementById('player').dataset.id;
+
+    if (e.data === YT.PlayerState.ENDED) {
+      player.loadVideoById(id);
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name":"Bannière avec vidéo",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "text",
+      "id": "vlink",
+      "label": "Lien de la vidéo « YouTube »",
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Bannière avec vidéo",
+      "label": "t:sections.image-banner.blocks.heading.settings.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "h1"
+        },
+        {
+          "value": "h2",
+          "label": "h2"
+        },
+        {
+          "value": "h3",
+          "label": "h3"
+        },
+        {
+          "value": "span",
+          "label": "Aucune"
+        }
+      ],
+      "default": "h2",
+      "label": "Balise titre (SEO)"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type":"header",
+      "content": "🌈 SVG Sous-titre",
+      "info": "👉 Optimisation Fireweb avec le SVG code"
+    },
+    {
+      "type": "html",
+      "id": "custom_svg_fe",
+      "label": "SVG personnalisé",
+      "info": "Ajouter le code SVG, sinon laisser vide."
+    },
+    {
+      "type": "color",
+      "id": "colorfeh2",
+      "label": "Couleur du SVG",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "id": "widthfeh2",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "rem",
+      "label": "Taille du SVG",
+      "default": 20
+    },
+    {
+      "type": "paragraph",
+      "content": "ℹ️ Pour appliquer un effet > Paramètres du thème > EFFECTS"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Donnez aux clients des détails sur la ou les images de la bannière ou le contenu du modèle.",
+      "label": "t:sections.image-banner.blocks.text.settings.text.label"
+    },
+	  {
+      "type": "text",
+      "id": "button_label_1",
+      "default": "Titre du bouton",
+      "label": "t:sections.image-banner.blocks.buttons.settings.button_label_1.label"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "t:sections.image-banner.blocks.buttons.settings.button_link_1.label"
+    },
+    {
+      "type": "select",
+      "id": "button1_style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Bouton primaire"
+        },
+        {
+          "value": "secondary",
+          "label": "Bouton secondaire"
+        }
+      ],
+      "label": "Style du bouton",
+      "default": "primary"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "t:sections.image-banner.blocks.buttons.settings.button_label_2.label"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "t:sections.image-banner.blocks.buttons.settings.button_link_2.label"
+    },
+    {
+      "type": "select",
+      "id": "button2_style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Bouton primaire"
+        },
+        {
+          "value": "secondary",
+          "label": "Bouton secondaire"
+        }
+      ],
+      "label": "Style du bouton",
+      "default": "secondary"
+    },
+    {
+      "type": "range",
+      "id": "width-min",
+      "min": 120,
+      "max": 200,
+      "step": 1,
+      "unit": "%",
+      "label": "Largeur minimum",
+      "default": 160
+    },
+    {
+      "type": "range",
+      "id": "height-min",
+      "min": 120,
+      "max": 200,
+      "step": 1,
+      "unit": "%",
+      "label": "Hauteur minimum",
+      "default": 160
+    },
+    {
+      "type": "header",
+      "content": "Ordinateur"
+    },
+    {
+      "type": "range",
+      "id": "section_height_desktop",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "vh",
+      "label": "Hauteur de la section",
+      "default": 75
+    },
+    {
+      "type": "checkbox",
+      "id": "offdesk",
+      "default": false,
+      "label": "Cacher la section"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "vh",
+      "label": "Hauteur de la section",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "offmob",
+      "default": false,
+      "label": "Cacher la section"
+    }
+  ],
+  "presets": [
+    {
+      "name":"Bannière avec vidéo"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,200 @@
+{{ 'section-sliding-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-style' %}
+  
+  .big-text {
+    display: inline-block;
+    z-index: 0;
+    animation: translateFull {{ section.settings.speed }}s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .scrolling_text {
+    font-size: {% if section.settings.text_size == 'xsmall' %}1.125rem{% elsif section.settings.text_size == 'small' %}2.5rem{% elsif section.settings.text_size == 'medium' %}3.75rem{% elsif section.settings.text_size == 'large' %}5rem{% else %}7.5rem{% endif %};
+    padding-inline-start: min(1em,2rem);
+    padding-inline-end: min(1em,2rem);
+  }
+
+   @media screen and (min-width: 700px) {
+      #shopify-section-{{ section.id }} .scrolling_text {
+        font-size: {% if section.settings.text_size == 'xsmall' %}1.5rem{% elsif section.settings.text_size == 'small' %}3.75rem{% elsif section.settings.text_size == 'medium' %}5rem{% elsif section.settings.text_size == 'large' %}8.75rem{% else %}12.5rem{% endif %};
+        padding-inline-start: min(1.5em,4rem);
+        padding-inline-end: min(1.5em,4rem);
+      }
+    }
+  
+  #shopify-section-{{ section.id }} .text-gradient {
+    background-image: var(--gradient);
+    color: #000000;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  #shopify-section-{{ section.id }} .text-stroke {
+    -webkit-text-stroke: 1px currentColor;
+    -webkit-text-fill-color: transparent;
+  }
+
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_style-section }}!important;
+    background: {{ section.settings.background_gradient }}!important;
+  }
+  
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  
+{%- endstyle -%}
+
+
+<div class="sliding-text-container {% if section.settings.text == blank %} no-heading{% endif %}">
+  <div class="page-width section-{{ section.id }}-padding isolate big-text">
+    {%- for i in (1..10) -%}
+      <span class="scrolling_text text-gradient text-stroke {% unless forloop.first %}motion-reduce:hidden{% endunless %}" {% unless forloop.first %}aria-hidden="true"{% endunless %} {{ section.settings.text_size }} style="color:{{ section.settings.stroke_color }};--gradient:{{ section.settings.text_gradient }}; -webkit-text-fill-color:{{ section.settings.text_color }};">
+        {{ section.settings.text }}
+      </span>
+    {%- endfor -%}
+  </div>
+</div>
+      
+{% schema %}
+{
+  "name": "Texte défilant",
+  "class": "section",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texte",
+      "default": "Texte Promotion"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Taille du texte",
+      "options": [
+        {
+          "value": "xsmall",
+          "label": "X-Small"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "xlarge",
+          "label": "X-Large"
+        }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "s",
+      "label": "Vitesse de défilement",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Le dégradé remplace les couleurs unies lorsqu'il est défini. Le contour du texte dégradé et l'arrière-plan dégradé ne peuvent pas être combinés."
+    },
+    {
+      "type": "color",
+      "id": "background_style-section",
+      "label": "Arrière-plan"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Dégradé arrière-plan"
+    },
+    {
+      "type": "color",
+      "id": "stroke_color",
+      "label": "Couleur texte contour"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur texte"
+    },
+    {
+      "type": "color_background",
+      "id": "text_gradient",
+      "label": "Dégradé texte"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Ordinateur"
+    },
+    {
+      "type": "checkbox",
+      "id": "offdesk",
+      "default": false,
+      "label": "Cacher la section"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "offmob",
+      "default": false,
+      "label": "Cacher la section"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Texte défilant"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,104 @@
+/* Style du carrousel */
+
+#shopify-section-{{ section.id }} .slider-button svg {
+    display: none;
+}
+
+#shopify-section-{{ section.id }} .slider-button {
+  {% if settings.background_carrousel %}
+    /*color: rgba(var(--color-button-text), 0.75);*/
+    /*background: rgba(var(--color-button), var(--alpha-button-background));*/
+    background-color: #000000bf;
+    margin: 0 5px;
+    border-radius: 50%;
+      border: 1px solid rgba(var(--color-button), var(--alpha-button-background));
+      background-size: 60%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H6M12 5l-7 7 7 7'/%3E%3C/svg%3E");
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: all .2s ease-out;
+      opacity: .8;
+  {% endif %}
+  width: {{ settings.size_background_carrousel }}px;
+  height: {{ settings.size_background_carrousel }}px;
+}
+
+#shopify-section-{{ section.id }} .slider-button .icon {
+  height: {{ settings.size_icon_carrousel }}px;
+}
+
+#shopify-section-{{ section.id }} .slideshow__autoplay path {
+  fill: rgba(var(--color-button-text), 1);
+}
+
+#shopify-section-{{ section.id }} .slideshow__autoplay:hover path {
+  fill: rgba(var(--color-button-text), 0.75);
+}
+
+#shopify-section-{{ section.id }} .slider-button:not([disabled]):hover {
+  {% if settings.background_carrousel %}
+    /*color: rgb(var(--color-button-text));*/
+    background-color: var(--gradient-base-accent-1);
+    opacity: 1;
+    background-position: 40% 50%;
+  {% endif %}
+}
+
+#shopify-section-{{ section.id }} .slider-button[disabled] .icon {
+  {% if settings.background_carrousel %}
+    color: rgba(var(--color-button-text), 0.3);
+  {% endif %}
+}
+
+
+#shopify-section-{{ section.id }} .slider-buttons {
+  {% if settings.alignment_carrousel == 'gauche' %}
+    justify-content: flex-start;
+    padding-left: 20px;
+  {% elsif settings.alignment_carrousel == 'centre' %}
+    justify-content: center;
+  {% elsif settings.alignment_carrousel == 'droite' %}
+    justify-content: flex-end;
+    padding-right: 20px;
+  {% else %}
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
+  {% endif %}
+}
+{% if section.settings.show_arrow_desktop == false %}
+  @media screen and (min-width: 749px) {
+  #shopify-section-{{ section.id }} .slider-buttons {
+    justify-content: center;
+  }
+}
+{% endif %}
+
+{% if section.settings.show_arrow_mobile == false %}
+  @media screen and (max-width: 749px) {
+  #shopify-section-{{ section.id }} .slider-buttons {
+    justify-content: center;
+  }
+}
+{% endif %}
+}
+
+/* Responsive sur mobile */
+
+@media screen and (max-width: 749px) {
+  #shopify-section-{{ section.id }} .slider-button {
+    {% if settings.show_carrousel_mobile %}
+      display: none;
+    {% endif %}
+  }
+}
+
+/* Ajout du carrousel sur ordinateur */
+
+#shopify-section-{{ section.id }} slider-component {
+  --desktop-margin-left-first-item: max(5rem, calc((100vw - var(--page-width) + 10rem - var(--grid-desktop-horizontal-spacing)) / 4));
+}
+
+#shopify-section-{{ section.id }} .slider--everywhere + .slider-buttons {
+  display: flex!important;
+}

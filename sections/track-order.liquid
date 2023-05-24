@@ -1,0 +1,812 @@
+<script src="{{ 'tracking-order.js' | asset_url }}" defer="defer"></script>
+
+{{ 'section-custom-content.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'section-main-page.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'section-before-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-slider.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'section-main-page.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'section-before-slider.css' | asset_url | stylesheet_tag }}</noscript>
+
+
+
+{%- style -%}
+  {% render 'section-style' %}
+
+  #shopify-section-{{ section.id }} .custom-content {
+	  display: flex;
+      align-items: {{ section.settings.alignment_align }};
+	  min-height: {{ section.settings.min_height }}vh;
+  }
+
+  .custom-section-page-width {
+    width: {{ settings.page_width }}px;
+  }
+
+  {% if section.settings.image_bg_desk != blank %}
+    .custom-content-{{ section.id }} {
+      background-image: url("{{ section.settings.image_bg_desk.src | img_url:'2000x' }}");
+      background-size: cover;
+      background-position: center;
+      background-attachment: initial;
+    }
+   .custom-content-{{ section.id }}::before{
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: {{section.settings.color_over}};
+      opacity: {{section.settings.track_opacity}}%;
+    }
+
+  {% endif %}
+  
+  {% if section.settings.image_bg_mob != blank %}
+    @media screen and (max-width: 749px) {
+      .custom-content-{{ section.id }} {
+        background-image: url("{{ section.settings.image_bg_mob.src | img_url:'1200x' }}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: initial;
+      }
+    }
+  {% endif %}
+
+  .section-{{ section.id }}-padding {
+    {% if section.settings.full_width != false %}
+      padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.75);
+    {% else %}
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    {% endif %}
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #button_tracking_number { 
+    border-color:{{ section.settings.color-btn }} !important; 
+  }
+  .TM_my_search_button_style { 
+    background-color: {{ section.settings.color-btn }} !important; 
+    background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNXB4IiB2aWV3Qm94PSIwIDAgMjQgMjUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+5Zu+5qCHL1RNIExPR088L3RpdGxlPgogICAgPGcgaWQ9IlRyYWNraW5nbW9yZee9kemhteaWsDIiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJIT01FIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtODMxLjAwMDAwMCwgLTcyMS4wMDAwMDApIj4KICAgICAgICAgICAgPGcgaWQ9Iue8lue7hC00MCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYwLjAwMDAwMCwgNzAwLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPGcgaWQ9IuWbvuaghy9UTS1MT0dPIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0NzEuMDAwMDAwLCAyMi4wMDAwMDApIj4KICAgICAgICAgICAgICAgICAgICA8ZyBpZD0i5Zu+5qCHIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjYwMDAwMCwgMC40Nzc0MTkpIj4KICAgICAgICAgICAgICAgICAgICAgICAgPGNpcmNsZSBpZD0iT3ZhbCIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjEuNiIgY3g9IjkuMiIgY3k9IjkuMiIgcj0iOS4yIj48L2NpcmNsZT4KICAgICAgICAgICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9IlBvbHlnb24iIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iOS42IDMuMzkzNTQ4MzkgMTUuMiA2LjEwMzIyNTgxIDkuNiA4LjgxMjkwMzIzIDQgNi4xMDMyMjU4MSI+PC9wb2x5Z29uPgogICAgICAgICAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iUG9seWdvbiIgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSI5LjIgOS40NTczNzIwNSA5LjIgMTUuNzgwNjQ1MiA0IDEzLjA5NDIxNjUgNCA2Ljg3MTYyMDc1Ij48L3BvbHlnb24+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwb2x5Z29uIGlkPSJQb2x5Z29uIiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjkuNzU4MDI2MDUgOS40MjA5NDQ1NiAxNS4yIDYuNzI0MDA5MzUgMTUuMTk1OTg5NSAxMi44MTAxNDA2IDkuNzU4MDI2MDUgMTUuNzgwNjQ1MiI+PC9wb2x5Z29uPgogICAgICAgICAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iUmVjdGFuZ2xlIiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjEzLjYgMTcuMDQ2MDIzMiAxNi4xOTU0NjI5IDE1LjAwNjQ1MTYgMjEuNiAyMS40ODMwMDkgMTkuMDA0NTM3MSAyMy41MjI1ODA2Ij48L3BvbHlnb24+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgIDxyZWN0IGlkPSJSZWN0YW5nbGUiIGZpbGwtb3BhY2l0eT0iMCIgZmlsbD0iI0ZGRkZGRiIgeD0iMCIgeT0iMCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48L3JlY3Q+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==") no-repeat 10px;
+    background-size: 25px;
+  }
+  
+{%- endstyle -%}
+
+{%- liquid
+  assign show_mobile_slider = false
+-%}
+
+<div class="custom-content custom-content-{{ section.id }} color-{{ section.settings.color_scheme }} gradient background-primary">
+  <div class="{% if section.settings.full_width != true %}page-width{% endif %} section-{{ section.id }}-padding isolate custom-section-page-width">
+    <slider-component class="slider-mobile-gutter">
+      <ul class="custom-content-list contains-content-container justify-{{ section.settings.alignment_justify }} align-{{ section.settings.alignment_align }}" id="Slider-{{ section.id }}" role="list">
+        {%- liquid
+          assign highest_ratio = 0
+          for block in section.blocks
+            if block.settings.image.aspect_ratio > highest_ratio
+              assign highest_ratio = block.settings.image.aspect_ratio
+            endif
+          endfor
+        -%}
+        
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+        	{%- when 'heading' -%}
+              <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="custom-content-list__item cstmtext-{{ block.settings.alignment }} {{ block.settings.taille }} {{ block.settings.taillemobile }}{% if block.settings.offdesk-bloc %} offdeskblock{% endif %}{% if block.settings.offmob-bloc %} offmobblock{% endif %}" {{ block.shopify_attributes }}>
+                <div class="title-custom title-wrapper--self-padded-mobile title-wrapper--no-top-margin">
+                  <{{ block.settings.heading_tag }} {% if settings.effect_apply_title_enable%} data-aos="{{ settings.animation_title_name }}"{% endif %} class="title {{ block.settings.heading_size }}">
+                    {{ block.settings.title | escape }}
+                      <div class="fe_h2_svg"><span style="fill:{{ block.settings.colorfeh2 }}; width:{{ block.settings.widthfeh2 }}rem;" {% if settings.effect_apply_enable%} data-aos="{{ settings.animation_name }}" data-aos-delay="600"{% endif %}> {%if block.settings.custom_svg_fe != blank %} {{ block.settings.custom_svg_fe }}{% endif %}</span>
+                        </div>
+                  </{{ block.settings.heading_tag }}>
+                </div>
+              </li>
+        	{%- when 'content' -%}
+              <li {% if settings.effect_apply_content_enable%} data-aos="{{ settings.animation_content_name }}" data-aos-delay="800"{% endif %} id="Slide-{{ section.id }}-{{ forloop.index }}" class="custom-content-list__item cstmtext-{{ block.settings.alignment }} {{ block.settings.taille }} {{ block.settings.taillemobile }}{% if block.settings.offdesk-bloc %} offdeskblock{% endif %}{% if block.settings.offmob-bloc %} offmobblock{% endif %}" {{ block.shopify_attributes }}>
+                <div class="title-wrapper--self-padded-mobile">
+                  {{ block.settings.content }}
+                </div>
+              </li>
+            {%- when 'custom-liquid' -%}
+              <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="custom-content-list__item cstmtext-{{ block.settings.alignment }} {{ empty_column }} {{ block.settings.taille }} {{ block.settings.taillemobile }}{% if block.settings.offdesk-bloc %} offdeskblock{% endif %}{% if block.settings.offmob-bloc %} offmobblock{% endif %}" {{ block.shopify_attributes }}>
+                  {{ block.settings.custom_liquid }}
+              </li>
+          {%- endcase -%}
+        {%- endfor -%}
+
+            <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="custom-content-list__item cstmtext-{{ section.settings.alignment }} {{ empty_column }} {{ section.settings.taille }} custom-mw-100{% if section.settings.offdesk-bloc %} offdeskblock{% endif %}{% if section.settings.offmob-bloc %} offmobblock{% endif %}" {{ section.shopify_attributes }}>
+                <div style="text-align:center;">
+                  <form role="form" action="//track.trackingmore.com" method="get" onsubmit="return false">
+                    <div class="TM_input-group">
+                      <input type="text" class="TM_my_search_input_style " id="button_tracking_number" placeholder="{{ section.settings.placeholder_label | escape }}" name="button_tracking_number" value="" autocomplete="off" maxlength="100" style="border-color: {{ section.settings.color-track }}">
+                        <span class="TM_input-group-btn">
+                          <button class="TM_my_search_button_style " id="query" type="button" onclick="return doTrack()" style="background-color: {{ section.settings.color-track }}">{{ section.settings.button_label | escape }}</button>
+                        </span>
+                    </div>
+                      <input type="hidden" name="lang" value="{{ section.settings.lang }}" />
+                      <input id="button_express_code" type="hidden" name="lang" value="" />
+                  </form>
+                  <div id="TRNum"></div>
+                </div>
+            </li>        
+      </ul>
+    </slider-component>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Suivi de commande",
+  "class": "section",
+  "tag": "section",
+  "settings": [
+    {
+      "type":"header",
+      "content": "📦 Suivi de commande"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "select",
+      "id": "alignment_justify",
+      "options": [
+        {
+          "value": "left",
+          "label": "Gauche"
+        },
+        {
+          "value": "center",
+          "label": "Centre"
+        },
+        {
+          "value": "right",
+          "label": "Droite"
+        }
+      ],
+      "default": "center",
+      "label": "Alignement horizontal"
+    },
+    {
+      "type": "select",
+      "id": "alignment_align",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Haut"
+        },
+        {
+          "value": "center",
+          "label": "Centre"
+        },
+        {
+          "value": "flex-end",
+          "label": "Bas"
+        }
+      ],
+      "default": "center",
+      "label": "Alignement vertical"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Heuteur minimum de la section",
+      "default": 0,
+	    "info": "La hauteur de la section s'adapte par défaut à la hauteur des blocs."
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Activer la pleine largeur de la page"
+    },
+    {
+      "type": "color",
+      "id": "color-track",
+      "label": "Couleur du tracking",
+      "default": "#F56900"
+    },
+    {
+      "type": "select",
+      "id": "taille",
+      "options": [
+        {
+          "value": "custom-w-100",
+          "label": "100%"
+        },
+        {
+          "value": "custom-w-75",
+          "label": "75%"
+        },
+        {
+          "value": "custom-w-66",
+          "label": "66%"
+        },
+        {
+          "value": "custom-w-50",
+          "label": "50%"
+        },
+        {
+          "value": "custom-w-33",
+          "label": "33%"
+        },
+        {
+          "value": "custom-w-25",
+          "label": "25%"
+        }
+      ],
+      "default": "custom-w-100",
+      "label": "Largeur du bloc",
+      "info": "Par défaut, un bloc prend 100% de la largeur disponible sur la page."
+    },
+    {
+      "type": "text",
+      "id": "placeholder_label",
+      "default": "Numéro de suivi",
+      "label": "Texte de prévisualisation"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Rechercher",
+      "label": "t:sections.multicolumn.settings.button_label.label"
+    },
+    {
+      "type": "select",
+      "id": "lang",
+      "options": [
+        {
+          "value": "fr",
+          "label": "Français"
+        },
+        {
+          "value": "en",
+          "label": "Anglais"
+        }
+      ],
+      "default": "fr",
+      "label": "Langue du tracking",
+      "info": "Par défaut, la langue est en français."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Ordinateur"
+    },
+	{
+      "type": "image_picker",
+      "id": "image_bg_desk",
+      "label": "Image de fond",
+	  "info": "Par défaut : Couleur de combinaison"
+    },
+    {
+      "type": "color",
+      "id": "color_over",
+      "label": {
+      "fr": "Couleur de superposition"
+      },
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "track_opacity",
+      "label": "Opacité",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "offdesk",
+      "default": false,
+      "label": "Cacher la section"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+	  {
+      "type": "image_picker",
+      "id": "image_bg_mob",
+      "label": "Image de fond",
+	  "info": "Par défaut : Couleur de combinaison"
+    },
+    {
+      "type": "checkbox",
+      "id": "offmob",
+      "default": false,
+      "label": "Cacher la section"
+    }
+  ],
+  "max_blocks": 3,
+  "blocks": [
+	  {
+      "type": "heading",
+      "name": "Titre",
+      "settings": [
+	    {
+          "type": "text",
+          "id": "title",
+          "default": "Titre",
+          "label": "t:sections.multicolumn.settings.title.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "h1"
+            },
+            {
+              "value": "h2",
+              "label": "h2"
+            },
+            {
+              "value": "h3",
+              "label": "h3"
+            },
+            {
+              "value": "span",
+              "label": "Aucune"
+            }
+          ],
+          "default": "h2",
+          "label": "Balise titre (SEO)"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__3.label"
+            }
+          ],
+          "default": "h1",
+          "label": "t:sections.all.heading_size.label"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Gauche"
+            },
+            {
+              "value": "center",
+              "label": "Centre"
+            },
+            {
+              "value": "right",
+              "label": "Droite"
+            }
+          ],
+          "default": "left",
+          "label": "Alignement du titre"
+        },
+        {
+          "type":"header",
+          "content": "🌈 SVG Sous-titre",
+          "info": "👉 Optimisation Fireweb avec le SVG code"
+        },
+        {
+          "type": "html",
+          "id": "custom_svg_fe",
+          "label": "SVG personnalisé",
+          "info": "Ajouter le code SVG, sinon laisser vide."
+        },
+        {
+          "type": "color",
+          "id": "colorfeh2",
+          "label": "Couleur du SVG",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "id": "widthfeh2",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "rem",
+          "label": "Taille du SVG",
+          "default": 20
+        },
+        {
+          "type": "paragraph",
+          "content": "ℹ️ Pour appliquer un effet > Paramètres du thème > EFFECTS"
+        },
+        {
+          "type": "header",
+          "content": "Ordinateur"
+        },
+        {
+          "type": "select",
+          "id": "taille",
+          "options": [
+            {
+              "value": "custom-w-100",
+              "label": "100%"
+            },
+            {
+              "value": "custom-w-75",
+              "label": "75%"
+            },
+            {
+              "value": "custom-w-66",
+              "label": "66%"
+            },
+            {
+              "value": "custom-w-50",
+              "label": "50%"
+            },
+            {
+              "value": "custom-w-33",
+              "label": "33%"
+            },
+            {
+              "value": "custom-w-25",
+              "label": "25%"
+            }
+          ],
+          "default": "custom-w-100",
+          "label": "Largeur du bloc",
+		  "info": "Par défaut, un bloc prend 100% de la largeur disponible sur la page."
+        },
+        {
+          "type": "checkbox",
+          "id": "offdesk-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "select",
+          "id": "taillemobile",
+          "options": [
+            {
+              "value": "custom-mw-100",
+              "label": "100%"
+            },
+            {
+              "value": "custom-mw-75",
+              "label": "75%"
+            },
+            {
+              "value": "custom-mw-66",
+              "label": "66%"
+            },
+            {
+              "value": "custom-mw-50",
+              "label": "50%"
+            },
+            {
+              "value": "custom-mw-33",
+              "label": "33%"
+            },
+            {
+              "value": "custom-mw-25",
+              "label": "25%"
+            }
+          ],
+          "default": "custom-mw-100",
+          "label": "Largeur du bloc",
+		  "info": "Par défaut, un bloc prend 100% de la largeur disponible sur la page."
+        },
+        {
+          "type": "checkbox",
+          "id": "offmob-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        }
+      ]
+	},
+	{
+      "type": "content",
+      "name": "Texte",
+      "settings": [
+	    	{
+          "type": "richtext",
+          "id": "content",
+          "label": "Texte"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Gauche"
+            },
+            {
+              "value": "center",
+              "label": "Centre"
+            },
+            {
+              "value": "right",
+              "label": "Droite"
+            }
+          ],
+          "default": "left",
+          "label": "Alignement du texte"
+        },
+        {
+          "type": "header",
+          "content": "Ordinateur"
+        },
+        {
+          "type": "select",
+          "id": "taille",
+          "options": [
+            {
+              "value": "custom-w-100",
+              "label": "100%"
+            },
+            {
+              "value": "custom-w-75",
+              "label": "75%"
+            },
+            {
+              "value": "custom-w-66",
+              "label": "66%"
+            },
+            {
+              "value": "custom-w-50",
+              "label": "50%"
+            },
+            {
+              "value": "custom-w-33",
+              "label": "33%"
+            },
+            {
+              "value": "custom-w-25",
+              "label": "25%"
+            }
+          ],
+          "default": "custom-w-100",
+          "label": "Largeur du bloc",
+		  "info": "Par défaut, un bloc prend 100% de la largeur disponible sur la page."
+        },
+        {
+          "type": "checkbox",
+          "id": "offdesk-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "select",
+          "id": "taillemobile",
+          "options": [
+            {
+              "value": "custom-mw-100",
+              "label": "100%"
+            },
+            {
+              "value": "custom-mw-75",
+              "label": "75%"
+            },
+            {
+              "value": "custom-mw-66",
+              "label": "66%"
+            },
+            {
+              "value": "custom-mw-50",
+              "label": "50%"
+            },
+            {
+              "value": "custom-mw-33",
+              "label": "33%"
+            },
+            {
+              "value": "custom-mw-25",
+              "label": "25%"
+            }
+          ],
+          "default": "custom-mw-100",
+          "label": "Largeur du bloc",
+		  "info": "Par défaut, un bloc prend 100% de la largeur disponible sur la page."
+        },
+        {
+          "type": "checkbox",
+          "id": "offmob-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        }
+      ]
+	},
+	{
+      "type": "custom-liquid",
+      "name": "Liquid personnalisé",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "t:sections.custom-liquid.settings.custom_liquid.label",
+          "info": "t:sections.custom-liquid.settings.custom_liquid.info"
+        },
+        {
+          "type": "header",
+          "content": "Ordinateur"
+        },
+        {
+          "type": "select",
+          "id": "taille",
+          "options": [
+            {
+              "value": "custom-w-100",
+              "label": "100%"
+            },
+            {
+              "value": "custom-w-75",
+              "label": "75%"
+            },
+            {
+              "value": "custom-w-66",
+              "label": "66%"
+            },
+            {
+              "value": "custom-w-50",
+              "label": "50%"
+            },
+            {
+              "value": "custom-w-33",
+              "label": "33%"
+            },
+            {
+              "value": "custom-w-25",
+              "label": "25%"
+            }
+          ],
+          "default": "custom-w-100",
+          "label": "Largeur du bloc",
+		  "info": "Par défaut, un bloc prend 100% de la largeur disponible sur la page."
+        },
+        {
+          "type": "checkbox",
+          "id": "offdesk-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "select",
+          "id": "taillemobile",
+          "options": [
+            {
+              "value": "custom-mw-100",
+              "label": "100%"
+            },
+            {
+              "value": "custom-mw-75",
+              "label": "75%"
+            },
+            {
+              "value": "custom-mw-66",
+              "label": "66%"
+            },
+            {
+              "value": "custom-mw-50",
+              "label": "50%"
+            },
+            {
+              "value": "custom-mw-33",
+              "label": "33%"
+            },
+            {
+              "value": "custom-mw-25",
+              "label": "25%"
+            }
+          ],
+          "default": "custom-mw-100",
+          "label": "Largeur du bloc",
+		      "info": "Par défaut, un bloc prend 100% de la largeur disponible sur la page."
+        },
+        {
+          "type": "checkbox",
+          "id": "offmob-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Suivi commande"
+    }
+  ]
+}
+{% endschema %}

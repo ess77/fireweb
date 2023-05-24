@@ -1,0 +1,607 @@
+{{ 'component-video-with-text.css' | asset_url | stylesheet_tag }}
+{{ 'readmore.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-style' %}
+
+  .read-more-checker ~ .read-more-button:before {
+    content: "{{ settings.text_voirplus }}";
+  }
+  .read-more-checker:checked ~ .read-more-button:before {
+    content: "{{ settings.text_voirmoins }}";
+  }
+
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_style-section }};
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  {% if section.settings.show_padding_content %}
+    @media screen and (max-width: 749px) {
+      .video-with-text {
+        padding: 20px 0!important;
+      }
+    }
+  {% endif %}
+  
+{%- endstyle -%}
+
+
+<div class="video-with-text video-with-text--{{ section.settings.content_layout }} page-width isolate{% if settings.text_boxes_border_thickness > 0 and settings.text_boxes_border_opacity > 0 and settings.media_border_thickness > 0 and settings.media_border_opacity > 0 %} collapse-borders{% endif %}{% unless section.settings.color_scheme == 'background-1' and settings.media_border_thickness > 0 and settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0 %} collapse-corners{% endunless %} section-{{ section.id }}-padding">
+  <div class="video-with-text__grid grid grid--gapless grid--1-col grid--{% if section.settings.desktop_video_width == 'medium' %}2-col-tablet{% else %}3-col-tablet{% endif %}{% if section.settings.layout == 'text_first' %} video-with-text__grid--reverse{% endif %}">
+    <div class="video-with-text__media-item video-with-text__media-item--{{ section.settings.desktop_video_width }} video-with-text__media-item--{{ section.settings.desktop_content_position }} grid__item">
+      <div class="video-with-text__media video-with-text__media--{{ section.settings.height }} gradient color-{{ section.settings.color_scheme }} global-media-settings {% if section.settings.video != blank %}media{% else %}video-with-text__media--placeholder placeholder{% endif %}">
+        {% if section.settings.height == 'adapt' and section.settings.video != blank %} style="padding-bottom: {{ 1 | divided_by: section.settings.video.aspect_ratio | times: 100 }}%;"{% endif %}
+        
+          {%- if section.settings.video_link != blank -%}
+            <video class="video_text_desk" width="100%" height="100%" autoplay="" muted="" loop="" playsinline="" data-loaded="true"><source src="{{ section.settings.video_link }}" type="video/mp4" alt="Video"></video>
+          {%- else -%}
+            {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+          {%- endif -%}
+        
+      </div> 
+    </div>
+    <div class="video-with-text__text-item grid__item">
+      <div id="videoWithText--{{ section.id }}" class="video-with-text__content video-with-text__content--{{ section.settings.desktop_content_position }} video-with-text__content--desktop-{{ section.settings.desktop_content_alignment }} video-with-text__content--mobile-{{ section.settings.mobile_content_alignment }} video-with-text__content--{{ section.settings.height }} gradient color-{{ section.settings.color_scheme }} content-container">
+        {%- for block in section.blocks -%}
+
+          {% if block.settings.readmore %}
+                <div class="holder-readmore">
+                <input type="checkbox" class="read-more-checker" id="read-more-checker--{{ section.id }}" />
+                <div class="limited-readmore l-{{ block.settings.formread }}">
+            {% endif %}
+        
+          {% case block.type %}
+            {%- when 'heading' -%}
+              <{{ block.settings.heading_tag }} {% if settings.effect_apply_title_enable%} data-aos="{{ settings.animation_title_name }}"{% endif %} class="video-with-text__heading {{ block.settings.heading_size }}{% if block.settings.offdesk-bloc %} offdesk{% endif %}{% if block.settings.offmob-bloc %} offmob{% endif %}" {{ block.shopify_attributes }}>
+                {{ block.settings.heading | escape }}
+                    <div class="fe_h2_svg"><span style="fill:{{ block.settings.colorfeh2 }}; width:{{ block.settings.widthfeh2 }}rem;" {% if settings.effect_apply_enable%}data-aos="{{ settings.animation_name }}" data-aos-delay="500"{% endif %}> {%if block.settings.custom_svg_fe != blank %} {{ block.settings.custom_svg_fe }}{% endif %}</span>
+                    </div>
+              </{{ block.settings.heading_tag }}>
+                
+            {%- when 'caption' -%}
+              <p class="video-with-text__text video-with-text__text--caption {{ block.settings.text_style }} {{ block.settings.text_style }}--{{ block.settings.text_size }} {{ block.settings.text_style }}{% if block.settings.offdesk-bloc %} offdesk{% endif %}{% if block.settings.offmob-bloc %} offmob{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.caption | escape }}</p>
+            {%- when 'text' -%}
+              <div {% if settings.effect_apply_content_enable%} data-aos="{{ settings.animation_content_name }}" data-aos-delay="800"{% endif %} class="video-with-text__text rte {{ block.settings.text_style }}{% if block.settings.offdesk-bloc %} offdesk{% endif %}{% if block.settings.offmob-bloc %} offmob{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+            
+            {% if block.settings.readmore %}
+                  <div class="bottom-readmore">&nbsp</div>
+                  </div>
+                  <label for="read-more-checker--{{ section.id }}" class="read-more-button link"></label>
+                  </div>
+                {% endif %}
+            
+            {%- when 'button' -%}
+              {%- if block.settings.button_label != blank -%}
+                <div {% if settings.effect_apply_btn_enable%} data-aos="{{ settings.animation_btn_name }}" data-aos-delay="1000"{% endif %}>
+                  <a{% if block.settings.button_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.button_link }}"{% endif %} class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}{% if block.settings.offdesk-bloc %} offdesk{% endif %}{% if block.settings.offmob-bloc %} offmob{% endif %}" {{ block.shopify_attributes }}>
+                    {{ block.settings.button_label | escape }}
+                  </a>
+                </div>
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+  
+                
+{% schema %}
+{
+  "name": "Vidéo avec texte",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "color",
+      "id": "background_style-section",
+      "label": "Arrière-plan section",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "video_link",
+      "label": "Lien de la vidéo"
+    },
+    {
+      "type": "paragraph",
+      "content": "ℹ️ Lien de la video dans votre shopify (recommandé 1000x1000px)"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Ordinateur"
+    },
+    {
+      "type": "select",
+      "id": "desktop_video_width",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.video-with-text.settings.desktop_video_width.options__1.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.video-with-text.settings.desktop_video_width.options__2.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.video-with-text.settings.desktop_video_width.options__3.label"
+        }
+      ],
+      "default": "medium",
+      "label": "Largeur de la video",
+      "info": "t:sections.video-with-text.settings.desktop_video_width.info"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "video_first",
+          "label": "t:sections.video-with-text.settings.layout.options__1.label"
+        },
+        {
+          "value": "text_first",
+          "label": "t:sections.video-with-text.settings.layout.options__2.label"
+        }
+      ],
+      "default": "video_first",
+      "label": "Placement de la video",
+      "info": "t:sections.video-with-text.settings.layout.info"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "top",
+          "label": "t:sections.video-with-text.settings.desktop_content_position.options__1.label"
+        },
+        {
+          "value": "middle",
+          "label": "t:sections.video-with-text.settings.desktop_content_position.options__2.label"
+        },
+        {
+          "value": "bottom",
+          "label": "t:sections.video-with-text.settings.desktop_content_position.options__3.label"
+        }
+      ],
+      "default": "top",
+      "label": "Position du contenu"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.video-with-text.settings.desktop_content_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.video-with-text.settings.desktop_content_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.video-with-text.settings.desktop_content_alignment.options__3.label"
+        }
+      ],
+      "default": "left",
+      "label": "Alignement du contenu"
+    },
+    {
+      "type": "checkbox",
+      "id": "offdesk",
+      "default": false,
+      "label": "Cacher la section"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.video-with-text.settings.mobile_content_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.video-with-text.settings.mobile_content_alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.video-with-text.settings.mobile_content_alignment.options__3.label"
+        }
+      ],
+      "default": "left",
+      "label": "Alignement du contenu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_padding_content",
+      "default": false,
+      "label": "Activer la video en pleine largeur"
+    },
+    {
+      "type": "checkbox",
+      "id": "offmob",
+      "default": false,
+      "label": "Cacher la section"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.video-with-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "video with text",
+          "label": "t:sections.video-with-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "h1"
+            },
+            {
+              "value": "h2",
+              "label": "h2"
+            },
+            {
+              "value": "h3",
+              "label": "h3"
+            },
+            {
+              "value": "span",
+              "label": "Aucune"
+            }
+          ],
+          "default": "h2",
+          "label": "Balise titre (SEO)"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__3.label"
+            }
+          ],
+          "default": "h1",
+          "label": "t:sections.all.heading_size.label"
+        },
+        {
+          "type":"header",
+          "content": "🌈 SVG Sous-titre",
+          "info": "👉 Optimisation Fireweb avec le SVG code"
+        },
+        {
+          "type": "html",
+          "id": "custom_svg_fe",
+          "label": "SVG personnalisé",
+          "info": "Ajouter le code SVG, sinon laisser vide."
+        },
+        {
+          "type": "color",
+          "id": "colorfeh2",
+          "label": "Couleur du SVG",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "id": "widthfeh2",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "rem",
+          "label": "Taille du SVG",
+          "default": 20
+        },
+        {
+          "type": "paragraph",
+          "content": "ℹ️ Pour appliquer un effet > Paramètres du thème > EFFECTS"
+        },
+        {
+          "type": "header",
+          "content": "Ordinateur"
+        },
+        {
+          "type": "checkbox",
+          "id": "offdesk-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "checkbox",
+          "id": "offmob-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        }
+      ]
+    },
+    {
+      "type": "caption",
+      "name": "t:sections.video-with-text.blocks.caption.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "caption",
+          "default": "Add a tagline",
+          "label": "t:sections.video-with-text.blocks.caption.settings.text.label"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "subtitle",
+              "label": "t:sections.video-with-text.blocks.caption.settings.text_style.options__1.label"
+            },
+            {
+              "value": "caption-with-letter-spacing",
+              "label": "t:sections.video-with-text.blocks.caption.settings.text_style.options__2.label"
+            }
+          ],
+          "default": "caption-with-letter-spacing",
+          "label": "t:sections.video-with-text.blocks.caption.settings.text_style.label"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "small",
+              "label": "t:sections.video-with-text.blocks.caption.settings.caption_size.options__1.label"
+            },
+            {
+              "value": "medium",
+              "label": "t:sections.video-with-text.blocks.caption.settings.caption_size.options__2.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.video-with-text.blocks.caption.settings.caption_size.options__3.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.video-with-text.blocks.caption.settings.caption_size.label"
+        },
+        {
+          "type": "header",
+          "content": "Ordinateur"
+        },
+        {
+          "type": "checkbox",
+          "id": "offdesk-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "checkbox",
+          "id": "offmob-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.video-with-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "html",
+          "id": "text",
+          "default": "<p>Pair text with an video to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+          "label": "t:sections.video-with-text.blocks.text.settings.text.label"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "t:sections.video-with-text.blocks.text.settings.text_style.options__1.label"
+            },
+            {
+              "value": "subtitle",
+              "label": "t:sections.video-with-text.blocks.text.settings.text_style.options__2.label"
+            }
+          ],
+          "default": "body",
+          "label": "t:sections.video-with-text.blocks.text.settings.text_style.label"
+        },
+        {
+          "type": "header",
+          "content": "Contenu caché"
+        },
+        {
+          "type": "checkbox",
+          "id": "readmore",
+          "default": false,
+          "label": "Activer le contenu caché (Voir plus)",
+          "info": "Pour un autre language du (Voir plus), entrez le mot ou l'expression à remplacer dans Paramètre du thème puis Traductions."
+        },
+        {
+          "type": "range",
+          "id": "formread",
+          "min": 100,
+          "max": 400,
+          "step": 100,
+          "unit": "px",
+          "label": "À partir de...",
+          "default": 200
+        },
+        {
+          "type": "header",
+          "content": "Ordinateur"
+        },
+        {
+          "type": "checkbox",
+          "id": "offdesk-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "checkbox",
+          "id": "offmob-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.video-with-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.video-with-text.blocks.button.settings.button_label.label",
+          "info": "t:sections.video-with-text.blocks.button.settings.button_label.info"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.video-with-text.blocks.button.settings.button_link.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_secondary",
+          "default": false,
+          "label": "t:sections.rich-text.blocks.buttons.settings.button_style_secondary_1.label"
+        },
+        {
+          "type": "header",
+          "content": "Ordinateur"
+        },
+        {
+          "type": "checkbox",
+          "id": "offdesk-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "checkbox",
+          "id": "offmob-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vidéo avec texte",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

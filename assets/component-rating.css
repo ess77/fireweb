@@ -1,0 +1,78 @@
+.rating {
+  display: inline-block;
+  margin: 0;
+}
+/*Fireweb*/
+.product .rating-star {
+  --letter-spacing: 0.3;
+  --font-size: 1.8;
+}
+/*Fireweb*/
+.product .caption span {
+  font-size: 1.4rem;
+}
+
+/*Fireweb*/
+.card-wrapper .rating-star {
+  --letter-spacing: 0.3;
+  --font-size: 1.6;
+}
+
+.rating-star {
+  --percent: calc(
+    (
+        var(--rating) / var(--rating-max) + var(--rating-decimal) *
+          var(--font-size) /
+          (var(--rating-max) * (var(--letter-spacing) + var(--font-size)))
+      ) * 100%
+  );
+  letter-spacing: calc(var(--letter-spacing) * 1rem);
+  font-size: calc(var(--font-size) * 1rem);
+  line-height: 1;
+  display: inline-block;
+  font-family: Times;
+  margin: 0;
+}
+
+.rating-star::before {
+  content: '★★★★★';
+  background: linear-gradient(
+    90deg,
+    var(--color-icon) var(--percent),
+    rgba(var(--color-foreground), 0.15) var(--percent)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #f2cb04;
+}
+
+.rating-text {
+  display: none;
+}
+
+.rating-count {
+  display: inline-block;
+  margin: 0;
+}
+
+@media (forced-colors: active) {
+  .rating {
+    display: none;
+  }
+
+  .rating-text {
+    display: block;
+  }
+}
+
+/* Fireweb Avis étoiles (interne) */
+.rating-natif-stars svg {
+  vertical-align: sub;
+}
+.rating-natif-stars svg.icon.color-stars-yellow {
+  width: 1.7rem !important;
+}
+
+span.rating-natif-star-text {
+    margin-left: 5px;
+}
+

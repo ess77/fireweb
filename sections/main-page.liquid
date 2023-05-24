@@ -1,0 +1,188 @@
+<link rel="stylesheet" href="{{ 'section-main-page.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'section-main-page.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- style -%}
+  {% render 'section-style' %}
+
+  {% if section.settings.hide-head %}
+    #shopify-section-header { display:none; }
+  {% endif %}
+  
+  {% if section.settings.hide-foot %}
+    #shopify-section-footer { display:none; }
+  {% endif %}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="page-width {% if section.settings.active_narrow != false %}page-width--narrow{% endif %} section-{{ section.id }}-padding">
+  <{{ section.settings.heading_tag }} {% if settings.effect_apply_title_enable%} data-aos="{{ settings.animation_title_name }}"{% endif %} class="main-page-title page-title h1 {{ section.settings.heading_alignment }}">
+    {{ page.title | escape }}
+      <div class="fe_h2_svg"><span style="fill:{{ section.settings.colorfeh2 }}; width:{{ section.settings.widthfeh2 }}rem;" {% if settings.effect_apply_enable%} data-aos="{{ settings.animation_name }}" data-aos-delay="600"{% endif %}> {%if section.settings.custom_svg_fe != blank %} {{ section.settings.custom_svg_fe }}{% endif %}</span>
+        </div>
+  </{{ section.settings.heading_tag }}>
+  <div class="rte">
+    {{ page.content }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "h1"
+        },
+        {
+          "value": "h2",
+          "label": "h2"
+        },
+        {
+          "value": "h3",
+          "label": "h3"
+        },
+        {
+          "value": "span",
+          "label": "Aucune"
+        }
+      ],
+      "default": "h2",
+      "label": "Balise titre (SEO)"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "À gauche"
+        },
+        {
+          "value": "center",
+          "label": "Au centre"
+        }
+      ],
+      "default": "left",
+      "label": "Alignement du titre"
+    },
+    {
+      "type": "header",
+      "content": "Structure de page"
+    },
+    {
+      "type": "checkbox",
+      "id": "active_narrow",
+      "default": false,
+      "label": "Désactiver la mise en page",
+      "info": "Réduit la largeur de la page."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide-head",
+      "default": false,
+      "label": "Cacher le header"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide-foot",
+      "default": false,
+      "label": "Cacher le footer"
+    },
+    {
+      "type":"header",
+      "content": "🌈 SVG Sous-titre",
+      "info": "👉 Optimisation Fireweb avec le SVG code"
+    },
+    {
+      "type": "html",
+      "id": "custom_svg_fe",
+      "label": "SVG personnalisé",
+      "info": "Ajouter le code SVG, sinon laisser vide."
+    },
+    {
+      "type": "color",
+      "id": "colorfeh2",
+      "label": "Couleur du SVG",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "id": "widthfeh2",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "rem",
+      "label": "Taille du SVG",
+      "default": 20
+    },
+    {
+      "type": "paragraph",
+      "content": "ℹ️ Pour appliquer un effet > Paramètres du thème > EFFECTS"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Ordinateur"
+    },
+    {
+      "type": "checkbox",
+      "id": "offdesk",
+      "default": false,
+      "label": "Cacher la section"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "offmob",
+      "default": false,
+      "label": "Cacher la section"
+    }
+  ]
+}
+{% endschema %}

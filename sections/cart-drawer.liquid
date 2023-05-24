@@ -1,0 +1,201 @@
+{%- render 'cart-drawer' -%}
+
+{% schema %}
+{
+  "name": "Panier coulissant",
+  "settings": [
+    {
+      "type":"header",
+      "content": "⬅️ Panier ~ Slide coulissant",
+      "info": "🤑 Application Fireweb, économisez 19€/mois"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart_note",
+      "label": "t:settings_schema.cart.settings.show_cart_note.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "title_show_cart_note",
+      "label": "Titre de la note du panier",
+      "default": "Instructions concernant la commande"
+    },
+    {
+      "type": "header",
+      "content": "Carte de produit"
+    },
+    {
+      "type": "range",
+      "id": "horizontal_margin",
+      "label": "Marge horizontale",
+      "unit": "px",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "vertical_margin",
+      "label": "Marge verticale",
+      "unit": "px",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "timer",
+      "name": "Compte à rebours",
+      "settings": [
+        {
+          "type":"header",
+          "content": "⏰ Panier ~ Comptes à rebours",
+          "info": "🤑 Application Fireweb, économisez 9€/mois"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Couleur du texte",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Couleur de fond",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte avant",
+          "default": "Votre panier est réservé pendant"
+        },
+        {
+          "type": "text",
+          "id": "textbefore",
+          "label": "Texte après",
+          "default": "minutes !"
+        },
+        {
+          "type": "range",
+          "id": "taille_text", 
+          "label": "Taille du texte (rem)",
+          "unit": "rem",
+          "min": 1,
+          "max": 3,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+        "type": "color",
+        "id": "clockdiv_color",
+        "label": "Couleur compte à rebours",
+        "default": "#FF0000"
+        },
+        {
+          "type": "range",
+          "id": "timer_minutes", 
+          "label": "Durée compte à rebours (minutes)",
+          "unit": "min",
+          "min": 5,
+          "max": 30,
+          "step": 5,
+          "default": 10
+        },
+        {
+         "type": "checkbox",
+         "id": "bold_text",
+         "label": "Activer l'épaisseur du compte à rebours",
+         "default": true
+       }
+      ]
+    },
+    {
+      "type": "annonce",
+      "name": "Barre d'annonces",
+      "settings": [
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Couleur de fond",
+          "default": "#F4F4F4"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texte de l'annonce",
+          "default": "<p>Insérez un message ici</p>"
+        },
+        {
+          "type": "color",
+          "id": "color_text",
+          "label": "Couleur du texte",
+          "default": "#000000"
+        }
+      ]
+    },
+    {
+      "type": "upsell",
+      "name": "Bump en un clic",
+      "settings": [
+        {
+          "type":"header",
+          "content": "⚛️ Panier ~ Bump en un clic",
+          "info": "🤑 Application Fireweb, économisez 19€/mois"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Produit"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "info": "Remplace le titre du produit."
+        }
+      ]
+    },
+    {
+      "type": "banner",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type":"header",
+          "content": "🚀 Icône ou SVG personnalisé",
+          "info": "👉 Optimisation Fireweb avec le SVG code"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_icon",
+          "label": "Icône personnalisé",
+          "info": "Ajouter le code SVG, sinon laisser vide."
+        },
+        {
+          "type":"paragraph",
+          "content":"Librairie Flaticon : [Icône personnalisé](https://www.flaticon.com/uicons)"
+        },
+        {
+          "type": "range",
+          "id": "svg_custom",
+          "min": 1,
+          "max": 40,
+          "step": 1,
+          "unit": "rem",
+          "label": "Largeur du SVG",
+          "default": 20
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

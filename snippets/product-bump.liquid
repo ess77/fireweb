@@ -1,0 +1,57 @@
+{% assign product_upsell = meta %}
+
+{% if product_upsell %}
+
+  {{ 'component-product-bump.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'product-bump.js' | asset_url }}" defer="defer"></script>
+
+  {% if offborder %}
+    {% style %}
+      .bump-container {
+        border: none;
+        padding: 0px;
+      }
+    {% endstyle %}
+  {% endif %}
+
+  <product-bump-form class="{% if offdesk %} offdesk{% endif %}{% if offmob %} offmob{% endif %}">
+    <div class="bump-container product-block-margin-{{ margin }}">
+      <div class="bump-checkbox-container">
+        <div class="bump-arrow"></div>
+        <input id="bump-checkbox" type="checkbox" name="bump" id="bump" data-product-id="{{ product_upsell.selected_or_first_available_variant.id}}">
+        <label for="bump">{{ title }}</label>
+      </div>
+      <div class="bump-content-container">
+          <div class="bump-datas">
+            {% unless offtitle %}
+            <a href="{{ product_upsell.url }}"><p class="bump-product-title">{{ product_upsell.title }}</p></a>
+            {% endunless %}
+            {% if product_upsell.variants.size > 1 %}
+              <select name="id" class="bump-select">
+                {% for variant in product_upsell.variants %}
+                  {% if variant.available %}
+                    <option value="{{ variant.id }}" data-variant-price="{{ variant.price | money_with_currency }}" data-variant-imgsrc="{{ variant.featured_image | img_url: '100x100' }}">{{ variant.title }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            {% endif %}
+            <div class="bump-description">{{ description }}</div>
+            {% unless offprice %}
+            <p class="bump-product-price">{{ product_upsell.price | money_with_currency }}</p>
+            {% endunless %}
+          </div>
+          {% if product_upsell.featured_media.preview_image != blank and offimg != true %}
+          <a href="{{ product_upsell.url }}">
+            <img class="bump-product-image" src="{{ product_upsell.featured_media.preview_image | img_url: '100x100' }}">
+          </a>
+          {% endif %}
+      </div>
+    </div>
+    
+    <form style="display: none;" method="post" action="/cart/add" id="product-bump-form" accept-charset="UTF-8" class="form" enctype="multipart/form-data" novalidate="novalidate" data-type="add-bump-to-cart-form">
+      <input type="hidden" name="form_type" value="product">
+      <input type="hidden" name="utf8" value="✓">
+      <button id="addBumpToCart" class="product-form__submit button button--full-width" type="submit" name="add" aria-haspopup="dialog"></button>
+    </form>
+  </product-bump-form>
+{% endif %}

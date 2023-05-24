@@ -1,0 +1,134 @@
+/*
+    Sticky ATC (Add to cart)
+*/
+#sticky-atc {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all .2s ease-out;
+    border-top: 0.1rem solid rgba(var(--color-foreground),.08);
+    box-shadow: 0 -.125rem .25rem rgba(0, 0, 0, .075);
+}
+@media (min-width: 990px) {
+    #sticky-atc {
+        z-index: 2!important;        
+  }
+}
+#sticky-atc.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (max-width: 990px) {
+    #sticky-atc .page-width {
+        margin-bottom: 0.5rem;       
+  }
+}
+#sticky-atc .page-width-inner {
+}
+@media (min-width: 990px) {
+    #sticky-atc .page-width-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+#sticky-atc .product-content {
+    display: flex;
+    align-items: center;
+    padding-bottom: .5rem;
+}
+@media (min-width: 990px) {
+    #sticky-atc .product-content {
+        padding-bottom: 0;
+        padding-right: 2rem;
+    }
+}
+#sticky-atc .product-content .product__title {
+    margin: 0 0 .25rem;
+}
+#sticky-atc .product-content .price {
+    display: flex;
+    align-items: center;
+}
+#sticky-atc .product-content img {
+    margin-right: .75rem;
+}
+
+#sticky-atc .product-img {
+    max-width: 100px;
+    flex-shrink: 0;
+    height: auto;
+}
+
+#sticky-atc .product-form {
+    flex-shrink: 1;
+}
+#sticky-atc .product-form .select {
+    flex-shrink: 1;
+    width: auto;
+    margin-right: .75rem;
+    flex-grow: 1;
+}
+@media (min-width: 990px) {
+    #sticky-atc .product-form .select {
+        flex-grow: 0;
+    }
+}
+#sticky-atc .product-form .select__select {
+    padding-right: 4rem;
+}
+#sticky-atc .product-form .quantity-input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#sticky-atc .product-form .quantity {
+    display: none;
+    flex-shrink: 0;
+    margin-right: .75rem;
+}
+
+@media (min-width: 990px) {
+    #sticky-atc .product-form .quantity {
+        display: flex;
+    }
+}
+#sticky-atc .product-form button[name="add"] {
+    flex-shrink: 1;
+    flex-grow: 1;
+    margin: 0;
+}
+@media (min-width: 990px) {
+    #sticky-atc .product-form button[name="add"] {
+        flex-grow: 0;
+    }
+}
+
+@media (max-width: 575px) {
+    #sticky-atc .product-img {
+        max-width: 80px;
+    }
+    #sticky-atc .spr-badge {
+        display: none;
+    }
+    #sticky-atc .price__badge-sale {
+        display: none;
+    }
+    #sticky-atc .product-form__submit {
+        font-size: 1.3rem;
+    }
+}
+
+/* Etoiles */
+#sticky-atc .spr-starrating, .spr-summary-starrating {
+    vertical-align: unset;
+}
+#sticky-atc .spr-icon {
+    color: #ffb81c;
+}

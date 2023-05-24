@@ -1,0 +1,49 @@
+{% style %}
+  /*-- Bouton de paiement personnalisé --*/
+
+  {% if settings.show_checkout_color_custom == true %}
+      .atc-button-style::after {
+        box-shadow: none;
+        /*box-shadow: 0 0 0 calc(var(--buttons-border-width) + var(--border-offset)) {{ settings.color_checkout_btn }},
+        0 0 0 var(--buttons-border-width)  {{ settings.color_checkout_btn }}!important;*/
+      }
+      .atc-button-style:not([disabled]):hover::after {
+        box-shadow: 0 0 0 calc(var(--buttons-border-width) + var(--border-offset)) rgba(var(--color-button-text),
+        var(--border-opacity)),
+        0 0 0 calc(var(--buttons-border-width) + 1px) rgba(var(--color-button),var(--alpha-button-background));
+      }
+      .atc-button-style {
+        background: {{ settings.color_checkout_btn }};
+        color: {{ settings.color_checkout_txt }};
+      }
+      .atc-button-style svg {
+        fill: {{ settings.color_checkout_txt }}!important;
+      }
+  
+      {% if settings.show_checkout_anime == true %}
+        .atc-button-style {
+          background-size: 600%;
+          animation: atcAnime {{ settings.atc_speed }}s linear infinite;
+        }
+      {% endif %}
+  {% endif %}
+{% endstyle %}
+
+<script>
+        window.addEventListener('DOMContentLoaded', () => {
+    const productFormSubmit = document.querySelector('.product-form__submit');
+    const checkoutButton = document.querySelector('#checkout.cart__checkout-button');
+
+    if (!productFormSubmit && !checkoutButton) {
+      return;
+    }
+
+    if (productFormSubmit) {
+      productFormSubmit.classList.add("atc-button-style");
+    }
+
+    if (checkoutButton) {
+      checkoutButton.classList.add("atc-button-style");
+    }
+  });
+</script>

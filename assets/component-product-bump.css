@@ -1,0 +1,84 @@
+.bump-container {
+  border: 2px solid rgba(var(--color-button),var(--alpha-button-background));
+  padding: 10px;
+}
+
+.bump-checkbox-container {
+  background-color: #f4f4f4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.bump-arrow {
+    display: block !important;
+    background-size: cover;
+    min-height: 30px;
+    min-width: 30px;
+    margin: 0px 10px;
+    background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='bump-arrow' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 100 100' style='enable-background:new 0 0 100 100;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .stbump-arrow0%7Bfill:%23D32F2F;%7D%0A%3C/style%3E%3Cpath class='stbump-arrow0' d='M50.4,87.2c0-7.2,0-13.9,0-20.8c-0.7-0.1-1.4-0.2-2-0.2C33.8,66.1,19.2,66,4.6,66c-1.7,0-2.4-0.4-2.4-2.3 c0.1-9.2,0.1-18.5,0-27.7c0-1.7,0.5-2.1,2.2-2.1c14.6,0.1,29.3,0,43.9,0.1c1.4,0,2.1-0.1,2-1.9c-0.2-5.7,0-18.4,0.1-19.2 c0.6,0.3,31.3,23.9,46.3,35.4c1.5,1.1,1.4,1.5-0.2,2.8C82.8,61.7,69.1,72.3,55.4,82.9C53.8,84.2,52.3,85.6,50.4,87.2z'/%3E%3C/svg%3E%0A");
+    animation: 0.2s ease-in-out 0s infinite alternate none running bump-arrow-zoom;
+    flex-basis: 30px;
+}
+
+@keyframes bump-arrow-zoom {
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0.99);
+  }
+}
+
+.bump-content-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  padding: 10px 0;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.bump-datas a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  margin: 0;
+}
+
+.bump-product-title,
+.bump-description p,
+.bump-product-price {
+  margin: 0;
+}
+
+.bump-description p {
+  font-size: 14px;
+}
+
+.bump-product-price {
+  color: black;
+  font-weight: bold;
+}
+
+
+

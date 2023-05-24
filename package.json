@@ -1,0 +1,25 @@
+{
+  "name": "refresh",
+  "version": "1.0.1",
+  "description": "A customize shopify theme for Shopify store.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Elfort Systems & Services",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
+  },
+  "dependencies": {
+    "standard": "^17.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ess77/shopify-maition.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ess77/shopify-maition/issues"
+  },
+  "homepage": "https://github.com/ess77/shopify-maition#readme"
+}

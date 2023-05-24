@@ -1,0 +1,282 @@
+{% liquid 
+    assign pt = section.settings.pt | prepend: 'pt-'
+    assign pb = section.settings.pb | prepend: 'pb-'
+    assign mt = section.settings.mt | prepend: 'mt-'
+    assign mb = section.settings.mb | prepend: 'mb-'
+%}
+
+<div 
+    id="html-section-{{ section.id }}" 
+    class="html-section color-{{ section.settings.color_scheme }} gradient {{ section.settings.text_align }} {{ pt }} {{ pb }} {{ mt }} {{ mb }}">
+    <div class="{{ section.settings.container }}">
+        {% unless section.settings.title == blank %}
+            <h2 class="title mb-4 {{ section.settings.title_size }}">
+                {{ section.settings.title }}
+              {% if section.settings.custom_svg_fe != blank %}
+                  <div class="fe_h2_svg">
+                      <span 
+                          style="fill:{{ section.settings.colorfeh2 }}; width:{{ section.settings.widthfeh2 }}rem;" {% if settings.effect_apply_enable%} data-aos="{{ settings.animation_name }}" 
+                          data-aos-delay="600"{% endif %}> 
+                          {{ section.settings.custom_svg_fe }}
+                      </span>
+                  </div>
+              {% endif %}
+            </h2>
+        {% endunless %}
+        {% unless section.settings.description == blank %}
+            <div class="description rte mt-n3 mb-7 {{ section.settings.description_size }}">
+                {{ section.settings.description }}
+            </div>
+        {% endunless %}
+        {{ section.settings.html }}
+
+        {% unless section.settings.btn_text == blank %}
+          <div class="html-button mt-5 mb-7">
+            <a 
+                class="button m-2 {% if section.settings.button_style_secondary %}button--secondary{% else %}button--primary{% endif %}"  
+                href="{{ section.settings.btn_url }}">
+                {{ section.settings.btn_text }}
+            </a>
+        {% endunless %}
+        {% unless section.settings.btn_secondary_text == blank %}
+            <a 
+                class="button m-2 {% if section.settings.button_style_secondary2 %}button--secondary{% else %}button--primary{% endif %}"  
+                href="{{ section.settings.btn_secondary_url }}">
+                {{ section.settings.btn_secondary_text }}
+            </a>
+          </div>
+        {% endunless %}
+    </div>
+</div>
+
+  
+{% schema %}
+{
+    "name": "⚙️ HTML/Liquid",
+    "settings": [
+        {
+            "type": "paragraph",
+            "content": "⚙️ Fonctionnalité 👉 Version Fireweb Pro et Premium"
+        },
+        {
+            "type": "liquid",
+            "id": "html",
+            "label": "HTML / LIQUID code",
+            "default": "<p class=\"bg-light rounded border p-4\">Date du jour : <b>{{ 'now' | date: \"%d %b %Y\" }}</b></p>",
+            "info": "Note : Vous pouvez utiliser les codes HTML et Liquid."
+        },
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "select",
+            "id": "color_scheme",
+            "options": [
+                {
+                  "value": "accent-1",
+                  "label": "t:sections.all.colors.accent_1.label"
+                },
+                {
+                  "value": "accent-2",
+                  "label": "t:sections.all.colors.accent_2.label"
+                },
+                {
+                  "value": "background-1",
+                  "label": "t:sections.all.colors.background_1.label"
+                },
+                {
+                  "value": "background-2",
+                  "label": "t:sections.all.colors.background_2.label"
+                },
+                {
+                  "value": "inverse",
+                  "label": "t:sections.all.colors.inverse.label"
+                }
+            ],
+            "default": "background-1",
+            "label": "t:sections.all.colors.label"
+        },
+        {
+            "type": "select",
+            "id": "container",
+            "label": "Container",
+            "default": "container",
+            "options": [
+                { "value": "container", "label": "Container" },
+                { "value": "container-fluid", "label": "Fluid" },
+                { "value": "", "label": "Pleine page" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "text_align",
+            "label": "Alignement du texte",
+            "default": "text-center",
+            "options": [
+                { "value": "text-start", "label": "Gauche" },
+                { "value": "text-center", "label": "Centre" }
+            ]
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Titre",
+            "default": "HTML / LIQUID code"
+        },
+        {
+            "type": "select",
+            "id": "title_size",
+            "label": "Taille du titre",
+            "default": "h2",
+            "options": [
+                { "value": "h1", "label": "H1" },
+                { "value": "h2", "label": "H2" },
+                { "value": "h3", "label": "H3" },
+                { "value": "h4", "label": "H4" },
+                { "value": "h5", "label": "H5" },
+                { "value": "h6", "label": "H6" }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "🏆 Application SVG Sous-titre",
+            "info": "👉 Application Version Fireweb Premium"
+        },
+        {
+            "type": "html",
+            "id": "custom_svg_fe",
+            "label": "SVG personnalisé",
+            "info": "Ajouter le code SVG, sinon laisser vide."
+        },
+        {
+            "type": "color",
+            "id": "colorfeh2",
+            "label": "Couleur du SVG",
+            "default": "#000"
+        },
+        {
+            "type": "range",
+            "id": "widthfeh2",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "unit": "rem",
+            "label": "Taille du SVG",
+            "default": 20
+        },
+        {
+            "type": "paragraph",
+            "content": "ℹ️ Pour appliquer un effet > Paramètres du thème > EFFECTS"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Rédigez un texte accrocheur pour cette section</p>"
+        },
+        {
+            "type": "select",
+            "id": "description_size",
+            "label": "Taille de description",
+            "default": "fs-4",
+            "options": [
+                { "value": "fs-1", "label": "Taille xxl" },
+                { "value": "fs-2", "label": "Taille xl" },
+                { "value": "fs-3", "label": "Taille l" },
+                { "value": "fs-4", "label": "Taille m" },
+                { "value": "fs-5", "label": "Taille s" },
+                { "value": "fs-6", "label": "Taille xs" }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Premier bouton"
+        },
+        {
+            "type": "text",
+            "id": "btn_text",
+            "label": "Texte du bouton",
+            "info": "Laisser vide pour désactiver"
+        },
+        {
+            "type": "url",
+            "id": "btn_url",
+            "label": "Lien du bouton"
+        },
+        {
+            "type": "checkbox",
+            "id": "button_style_secondary",
+            "label": "Utiliser le style de bouton en relief",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Second bouton"
+        },
+        {
+            "type": "text",
+            "id": "btn_secondary_text",
+            "label": "Texte du bouton",
+            "info": "Laisser vide pour désactiver"
+        },
+        {
+            "type": "url",
+            "id": "btn_secondary_url",
+            "label": "Button URL"
+        },
+        {
+            "type": "checkbox",
+            "id": "button_style_secondary2",
+            "label": "Utiliser le style de bouton en relief",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "t:sections.all.padding.section_padding_heading"
+        },
+        {
+            "type": "range",
+            "id": "pt",
+            "label": "Padding supérieure",
+            "min": 0,
+            "max": 20,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "pb",
+            "label": "Padding inférieure",
+            "min": 0,
+            "max": 20,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mt",
+            "label": "Marge supérieure",
+            "min": 0,
+            "max": 20,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mb",
+            "label": "Marge inférieure",
+            "min": 0,
+            "max": 20,
+            "step": 1,
+            "default": 0
+        }
+    ],
+    "presets": [
+        {
+            "name": "⚙️ HTML/Liquid",
+            "category": "General"
+        }
+    ]
+}
+{% endschema %}

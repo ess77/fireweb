@@ -1,0 +1,40 @@
+{% style %}
+  .arrow-up {
+    position: fixed;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    bottom: {{ settings.posarrow }}px;
+    {{ settings.positionarrow }}: 33px;
+    background-color: rgb(var(--color-background));
+    color: rgba(var(--color-foreground));
+    text-align: center;
+    border-radius: 50px;
+    transform: rotatez(-90deg);
+    z-index: 99;
+  }
+  .arrow-up .icon-arrow {
+    width: 2rem;
+    height: inherit;
+  }
+{% endstyle %}
+
+<div id="topscroll" class="arrow-up color-{{ settings.color_scheme_arrowtop }} gradient">
+  <svg viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor">
+  </svg>
+</div>
+
+<script>
+// Récupérer l'élément du bouton de retour en haut de page
+var boutonRetourHaut = document.getElementById("topscroll");
+
+// Ajouter un écouteur d'événement de clic au bouton
+boutonRetourHaut.addEventListener("click", function() {
+  // Faire défiler vers le haut de la page en douceur
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+</script>

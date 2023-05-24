@@ -1,0 +1,193 @@
+{
+    "type": "header",
+    "name": "Groupe de pied de page",
+    "sections": {
+        "89d4c4bd-a347-472f-a26e-80c1ee1b82c3": {
+            "type": "custom-border",
+            "settings": {
+                "divider_option": "wave_custom",
+                "wave_custom": "7",
+                "reverse": true,
+                "color_border_fond_svg": "#ffffff",
+                "color_border_svg": "#f7f7f7",
+                "svg_border_top": "",
+                "svg_border_bottom": "",
+                "full_width": true,
+                "padding_top": 0,
+                "padding_bottom": 0,
+                "offdesk": false,
+                "offmob": false
+            }
+        },
+        "539faed7-0b20-47fa-8a2b-f9a94a3b32c1": {
+            "type": "multicolumn",
+            "blocks": {
+                "sections--16659736166621__539faed7-0b20-47fa-8a2b-f9a94a3b32c1-1675257758d5d26bc8-0": {
+                    "type": "column",
+                    "settings": {
+                        "custom_icon": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" id=\"Outline\" viewbox=\"0 0 24 24\" width=\"512\" height=\"512\"><path d=\"M23.836,8.794a3.179,3.179,0,0,0-3.067-2.226H16.4L15.073,2.432a3.227,3.227,0,0,0-6.146,0L7.6,6.568H3.231a3.227,3.227,0,0,0-1.9,5.832L4.887,15,3.535,19.187A3.178,3.178,0,0,0,4.719,22.8a3.177,3.177,0,0,0,3.8-.019L12,20.219l3.482,2.559a3.227,3.227,0,0,0,4.983-3.591L19.113,15l3.56-2.6A3.177,3.177,0,0,0,23.836,8.794Zm-2.343,1.991-4.144,3.029a1,1,0,0,0-.362,1.116L18.562,19.8a1.227,1.227,0,0,1-1.895,1.365l-4.075-3a1,1,0,0,0-1.184,0l-4.075,3a1.227,1.227,0,0,1-1.9-1.365L7.013,14.93a1,1,0,0,0-.362-1.116L2.507,10.785a1.227,1.227,0,0,1,.724-2.217h5.1a1,1,0,0,0,.952-.694l1.55-4.831a1.227,1.227,0,0,1,2.336,0l1.55,4.831a1,1,0,0,0,.952.694h5.1a1.227,1.227,0,0,1,.724,2.217Z\"><\/path><\/svg>",
+                        "image_width_custom": 40,
+                        "title": "Titre de la colonne",
+                        "text": "<p>Associez du texte à une image pour mettre l'accent sur le produit, la collection ou l'article de blog de votre choix.<\/p>",
+                        "link_label": "",
+                        "link": "",
+                        "offdesk-bloc": false,
+                        "show_carrousel_mobile": true,
+                        "offmob-bloc": false
+                    }
+                },
+                "sections--16659736166621__539faed7-0b20-47fa-8a2b-f9a94a3b32c1-1675257758d5d26bc8-1": {
+                    "type": "column",
+                    "settings": {
+                        "custom_icon": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" id=\"Outline\" viewbox=\"0 0 24 24\" width=\"512\" height=\"512\"><path d=\"M22.555,13.662l-1.9-6.836A9.321,9.321,0,0,0,2.576,7.3L1.105,13.915A5,5,0,0,0,5.986,20H7.1a5,5,0,0,0,9.8,0h.838a5,5,0,0,0,4.818-6.338ZM12,22a3,3,0,0,1-2.816-2h5.632A3,3,0,0,1,12,22Zm8.126-5.185A2.977,2.977,0,0,1,17.737,18H5.986a3,3,0,0,1-2.928-3.651l1.47-6.616a7.321,7.321,0,0,1,14.2-.372l1.9,6.836A2.977,2.977,0,0,1,20.126,16.815Z\"><\/path><\/svg>",
+                        "image_width_custom": 40,
+                        "title": "Titre de la colonne",
+                        "text": "<p>Associez du texte à une image pour mettre l'accent sur le produit, la collection ou l'article de blog de votre choix.<\/p>",
+                        "link_label": "",
+                        "link": "",
+                        "offdesk-bloc": false,
+                        "show_carrousel_mobile": true,
+                        "offmob-bloc": false
+                    }
+                },
+                "sections--16659736166621__539faed7-0b20-47fa-8a2b-f9a94a3b32c1-1675257758d5d26bc8-2": {
+                    "type": "column",
+                    "settings": {
+                        "custom_icon": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" id=\"Outline\" viewbox=\"0 0 24 24\" width=\"512\" height=\"512\"><path d=\"M19,8.424V7A7,7,0,0,0,5,7V8.424A5,5,0,0,0,2,13v6a5.006,5.006,0,0,0,5,5H17a5.006,5.006,0,0,0,5-5V13A5,5,0,0,0,19,8.424ZM7,7A5,5,0,0,1,17,7V8H7ZM20,19a3,3,0,0,1-3,3H7a3,3,0,0,1-3-3V13a3,3,0,0,1,3-3H17a3,3,0,0,1,3,3Z\"><\/path><path d=\"M12,14a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V15A1,1,0,0,0,12,14Z\"><\/path><\/svg>",
+                        "image_width_custom": 40,
+                        "title": "Titre de la colonne",
+                        "text": "<p>Associez du texte à une image pour mettre l'accent sur le produit, la collection ou l'article de blog de votre choix.<\/p>",
+                        "link_label": "",
+                        "link": "",
+                        "offdesk-bloc": false,
+                        "show_carrousel_mobile": true,
+                        "offmob-bloc": false
+                    }
+                },
+                "735156c2-54e2-405b-8b22-f83a17a9ecda": {
+                    "type": "column",
+                    "settings": {
+                        "custom_icon": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" id=\"Outline\" viewbox=\"0 0 24 24\" width=\"512\" height=\"512\"><path d=\"M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z\"><\/path><\/svg>",
+                        "image_width_custom": 40,
+                        "title": "Titre de la colonne",
+                        "text": "<p>Associez du texte à une image pour mettre l'accent sur le produit, la collection ou l'article de blog de votre choix.<\/p>",
+                        "link_label": "",
+                        "link": "",
+                        "offdesk-bloc": false,
+                        "show_carrousel_mobile": true,
+                        "offmob-bloc": false
+                    }
+                }
+            },
+            "block_order": ["sections--16659736166621__539faed7-0b20-47fa-8a2b-f9a94a3b32c1-1675257758d5d26bc8-0", "sections--16659736166621__539faed7-0b20-47fa-8a2b-f9a94a3b32c1-1675257758d5d26bc8-1", "sections--16659736166621__539faed7-0b20-47fa-8a2b-f9a94a3b32c1-1675257758d5d26bc8-2", "735156c2-54e2-405b-8b22-f83a17a9ecda"],
+            "settings": {
+                "color_scheme": "background-1",
+                "background_style": "none",
+                "title": "",
+                "heading_tag": "h2",
+                "heading_size": "h1",
+                "heading_alignment": "left",
+                "custom_svg_fe": "",
+                "colorfeh2": "#000000",
+                "widthfeh2": 20,
+                "image_width": "third",
+                "image_ratio": "adapt",
+                "column_alignment": "center",
+                "button_label": "",
+                "button_link": "",
+                "padding_top": 0,
+                "padding_bottom": 20,
+                "columns_desktop": 4,
+                "swipe_on_desktop": false,
+                "offdesk": false,
+                "columns_mobile": "1",
+                "swipe_on_mobile": true,
+                "offmob": false
+            }
+        },
+        "footer": {
+            "type": "footer",
+            "blocks": {
+                "880aa45e-d398-4949-9bc3-b34a37e4f93e": {
+                    "type": "image",
+                    "settings": {
+                        "svg_logo_footer": "<svg version=\"1.0\" id=\"logo-footer\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" style=\"filter: invert(41%) sepia(100%) saturate(584%) hue-rotate(162deg) brightness(99%) contrast(107%);\" width=\"93.000000pt\" height=\"96.000000pt\" viewBox=\"0 0 93.000000 96.000000\"  preserveAspectRatio=\"xMidYMid meet\"> <g transform=\"translate(0.000000,96.000000) scale(0.100000,-0.100000)\" fill=\"#000000\" stroke=\"none\"> <path d=\"M315 922 c-107 -37 -203 -120 -259 -222 -32 -58 -24 -87 25 -97 28 -5 29 -7 29 -69 l0 -64 -41 21 c-23 11 -44 29 -46 40 -8 28 -21 14 -15 -17 5 -27 53 -64 83 -64 9 0 24 -9 33 -19 16 -18 29 -19 143 -15 68 3 130 1 136 -4 7 -5 36 -12 64 -15 137 -16 268 -77 293 -137 12 -28 11 -38 -8 -81 -12 -28 -16 -49 -10 -49 6 0 3 -10 -8 -22 l-19 -22 27 20 c14 10 22 21 17 22 -5 2 7 22 27 44 72 80 84 165 34 239 -16 24 -34 45 -40 45 -5 1 -14 2 -18 3 -5 0 -7 14 -4 30 4 32 -21 55 -93 85 -59 25 -77 44 -64 69 10 17 18 19 75 14 48 -3 64 -1 64 8 0 14 -43 25 -96 25 -18 0 -36 5 -39 10 -3 6 -21 10 -38 10 -18 0 -48 5 -67 10 -19 6 -113 15 -207 22 -180 12 -193 17 -153 53 26 23 107 28 267 16 198 -16 312 -51 409 -129 31 -24 60 -59 74 -87 26 -54 38 -53 19 2 -17 52 -101 131 -179 169 -100 49 -210 68 -387 69 -84 0 -153 1 -153 2 0 15 64 34 142 44 165 19 325 -7 431 -72 26 -16 47 -25 47 -20 0 21 -116 81 -189 97 -79 18 -209 23 -296 11 l-50 -7 40 17 c29 12 72 17 162 17 66 1 116 4 110 8 -24 15 -220 8 -272 -10z m-65 -207 c63 -3 169 -12 235 -19 l120 -12 -28 -18 c-32 -22 -37 -66 -9 -81 10 -6 45 -23 76 -39 64 -32 74 -46 58 -82 -10 -20 -19 -24 -57 -24 -26 0 -55 5 -66 10 -23 13 -40 5 -32 -15 7 -21 150 -20 177 0 16 12 22 11 48 -8 77 -57 79 -162 4 -252 l-25 -30 21 51 21 52 -27 47 c-23 38 -40 52 -89 76 -34 16 -71 29 -82 29 -10 0 -39 8 -63 17 -35 13 -48 14 -63 5 -10 -7 -27 -12 -36 -11 -14 0 -15 2 -3 6 100 38 90 114 -20 151 -89 31 -99 92 -14 92 25 0 54 -5 64 -10 21 -11 33 -1 20 20 -11 18 -120 19 -154 1 -16 -9 -26 -23 -26 -36 0 -12 -2 -24 -5 -27 -5 -5 -147 11 -154 18 -2 2 2 10 9 19 9 10 31 15 71 15 33 0 59 4 59 10 0 6 -30 10 -69 10 -63 0 -71 -2 -90 -26 -38 -48 -76 -7 -48 52 14 29 20 33 39 25 13 -5 75 -12 138 -16z m17 -141 c12 -2 23 1 25 8 3 8 13 5 32 -9 15 -12 40 -25 56 -28 17 -4 30 -10 30 -15 0 -4 9 -10 20 -13 22 -6 26 -28 10 -58 -13 -23 -30 -23 -186 -7 l-114 12 0 38 0 38 56 0 c34 0 53 4 49 10 -3 6 -28 10 -56 10 -37 0 -49 4 -49 15 0 13 9 15 53 10 28 -4 62 -8 74 -11z\"\/> <path d=\"M385 591 c11 -6 58 -23 105 -39 47 -15 113 -38 147 -49 65 -22 81 -10 20 16 -17 8 -45 19 -62 26 -43 19 -94 33 -145 40 -25 4 -54 8 -65 11 -20 4 -20 4 0 -5z\"\/> <path d=\"M672 640 c35 -10 103 -58 154 -107 61 -59 75 -131 50 -243 -4 -17 -1 -14 10 10 57 120 -6 270 -138 330 -24 11 -56 19 -73 19 l-30 -1 27 -8z\"\/> <path d=\"M14 370 c4 -14 10 -36 13 -50 9 -40 71 -131 122 -180 126 -122 349 -162 494 -89 62 32 77 54 77 114 0 82 -118 126 -371 140 -181 9 -272 29 -318 69 l-24 21 7 -25z m134 -69 c32 -9 104 -17 255 -26 85 -5 159 -15 172 -24 6 -4 28 -13 50 -20 42 -14 75 -42 75 -63 0 -26 -39 -76 -72 -93 -57 -30 -155 -44 -223 -33 -33 6 -67 13 -75 16 -8 3 -17 6 -20 7 -23 7 -80 40 -80 47 0 4 -9 8 -21 8 -11 0 -18 4 -14 9 3 5 -4 12 -15 16 -11 3 -20 13 -20 21 0 8 -9 18 -21 22 -11 5 -21 12 -21 17 0 6 -13 29 -29 52 -16 23 -29 44 -29 47 0 9 52 7 88 -3z\"\/> <\/g> <\/svg> <p class=\"logo-footer\"><br>Notre devise est votre réussite en e-commerce.<\/p>",
+                        "image_width": 75,
+                        "alignment": "",
+                        "offdesk-bloc": false,
+                        "offmob-bloc": false
+                    }
+                },
+                "58bcf441-f539-48fb-994c-b108f6149e5f": {
+                    "type": "link_list",
+                    "settings": {
+                        "heading": "Boutique",
+                        "menu": "main-menu",
+                        "offdesk-bloc": false,
+                        "collapsible_menu": true,
+                        "offmob-bloc": false
+                    }
+                },
+                "a81d1b8d-26bd-46cf-9282-5ba4d78bff13": {
+                    "type": "link_list",
+                    "settings": {
+                        "heading": "Liens rapides",
+                        "menu": "footer",
+                        "offdesk-bloc": false,
+                        "collapsible_menu": false,
+                        "offmob-bloc": false
+                    }
+                },
+                "c42a5435-ffc0-4177-b1a0-8efe76241776": {
+                    "type": "newsletter",
+                    "settings": {
+                        "newsletter_heading": "S'abonner à notre newsletter",
+                        "text": "<p>Inscrivez-vous et recevez 10% de remise sur votre première commande 👇<\/p>",
+                        "newsletter_enable": false,
+                        "code_grand_formulaire": "",
+                        "show_social": true,
+                        "offdesk-bloc": false,
+                        "offmob-bloc": false
+                    }
+                }
+            },
+            "block_order": ["880aa45e-d398-4949-9bc3-b34a37e4f93e", "58bcf441-f539-48fb-994c-b108f6149e5f", "a81d1b8d-26bd-46cf-9282-5ba4d78bff13", "c42a5435-ffc0-4177-b1a0-8efe76241776"],
+            "settings": {
+                "color_scheme": "inverse",
+                "footer_bottom_menu": true,
+                "footer_animation_hover": true,
+                "footer_style_hover": "animation",
+                "footer_type_animation": "animation-2",
+                "vague": true,
+                "wave": "7",
+                "color_border_fond_svg": "#ffffff",
+                "color_border_svg": "#1d1d1f",
+                "svg_border_top": "",
+                "enable_country_selector": false,
+                "enable_language_selector": false,
+                "background_footer-second": "#f56900",
+                "payment_enable": true,
+                "text-copyright": "",
+                "show_powered": true,
+                "margin_top": 0,
+                "footer_band_enable": true,
+                "m_footer_band_text": "Votre texte ici pour la bande de pied de page",
+                "footer_band_link": "#",
+                "flash_band_enable": true,
+                "footer_band_bg_color": "#1d1d1f",
+                "footer_band_text_color": "#ffffff",
+                "footer_band_link_hover_color": "#ffffff",
+                "footer_band_top_border_color": "#ffffff",
+                "footer_band_top_border_width": "0px",
+                "footer_band_text_style": "400",
+                "footer_band_text_size": "12px",
+                "footer_band_height_desktop": "10px",
+                "padding_top": 30,
+                "padding_bottom": 30,
+                "offdesk": false,
+                "offmob": false
+            }
+        }
+    },
+    "order": ["89d4c4bd-a347-472f-a26e-80c1ee1b82c3", "539faed7-0b20-47fa-8a2b-f9a94a3b32c1", "footer"]
+}

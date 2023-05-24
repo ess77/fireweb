@@ -1,0 +1,679 @@
+{{ 'section-testimonials.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-slider.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- style -%}
+  {% render 'section-style' %}
+
+  {% render 'carrousel-style' %}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  /* Témoignages Sous-titre Fireweb */  
+  .spr-summary {
+    text-align: center;
+    padding: 0px 20px 35px 20px;
+  }
+  .spr-starrating, .spr-summary-starrating {
+    vertical-align: sub;
+    padding-right: 5px;
+  }
+  .spr-summary-actions-newreview {
+    float: none;
+    margin-left: 10px;
+  }
+
+{%- endstyle -%}
+
+{%- liquid
+  assign show_desktop_slider = true
+  assign show_mobile_slider = true
+-%}
+
+
+<div id="review" class="testimonial color-{{ section.settings.color_scheme }} gradient{% unless section.settings.background_style == 'none' and settings.text_boxes_border_thickness > 0 or settings.text_boxes_shadow_opacity > 0 %} background-{{ section.settings.background_style }}{% endunless %}{% if section.settings.title == blank %} no-heading{% endif %}">
+  <div class="page-width-desktop section-{{ section.id }}-padding isolate">
+    {%- unless section.settings.title == blank -%}
+      <div class="title-wrapper-with-link {{ section.settings.heading_alignment }} title-wrapper--self-padded-mobile title-wrapper--no-top-margin">
+        <{{ section.settings.heading_tag }} {% if settings.effect_apply_title_enable%} data-aos="{{ settings.animation_title_name }}"{% endif %} class="title {{ section.settings.heading_size }}">
+          {{ section.settings.title | escape }}
+            <div class="fe_h2_svg"><span style="fill:{{ section.settings.colorfeh2 }}; width:{{ section.settings.widthfeh2 }}rem;" {% if settings.effect_apply_enable%} data-aos="{{ settings.animation_name }}" data-aos-delay="600"{% endif %}> {%if section.settings.custom_svg_fe != blank %} {{ section.settings.custom_svg_fe }}{% endif %}</span>
+              </div>
+        </{{ section.settings.heading_tag }}>
+      </div>
+    {%- endunless -%}
+
+
+
+          <div class="spr-summary rte">
+            <span class="spr-starrating spr-summary-starrating" aria-label="5.0 of 5 stars" role="img">
+
+              {% for i in (1..5) %}
+                  {% if i <= section.settings.startitle %}
+                    <svg class="icon color-stars-yellow-title" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                      <path d="M10 2.62639L8.54072 7.33639C8.34848 7.95687 7.79714 8.37696 7.17504 8.37696H2.45272L6.27316 11.2879C6.77645 11.6714 6.98704 12.3511 6.7948 12.9716L5.33552 17.6816L9.15596 14.7706C9.65925 14.3872 10.3408 14.3872 10.844 14.7706L14.6645 17.6816L13.2052 12.9716C13.013 12.3511 13.2236 11.6714 13.7268 11.2879L17.5473 8.37696H12.825C12.2029 8.37696 11.6515 7.95687 11.4593 7.33639L10 2.62639ZM10.4552 0.846855C10.3119 0.384382 9.68806 0.384382 9.54477 0.846855L7.63027 7.02616C7.56619 7.23298 7.38241 7.37301 7.17504 7.37301H0.979572C0.515888 7.37301 0.323098 7.99527 0.698226 8.28109L5.71047 12.1001C5.87823 12.2279 5.94843 12.4545 5.88435 12.6613L3.96984 18.8406C3.82656 19.3031 4.33129 19.6877 4.70642 19.4019L9.71865 15.5828C9.88642 15.455 10.1136 15.455 10.2813 15.5828L15.2936 19.4019C15.6687 19.6877 16.1734 19.3031 16.0302 18.8406L14.1157 12.6613C14.0516 12.4545 14.1218 12.2279 14.2895 12.1001L19.3018 8.28109C19.6769 7.99527 19.4841 7.37301 19.0204 7.37301H12.825C12.6176 7.37301 12.4338 7.23298 12.3697 7.02616L10.4552 0.846855Z"/>
+                    </svg>
+                  {% else %}
+                    {% assign t = i | minus: 1 %}
+                    {% if section.settings.startitle > t and section.settings.startitle < i %}
+                      <svg class="icon color-stars-yellow-title" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                        <defs>
+                          <linearGradient id="grad">
+                            <stop offset="50%" stop-color="#f2ca0b"/>
+                            <stop offset="50%" stop-color="#dddddd"/>
+                          </linearGradient>
+                        </defs>
+                        <path fill="url(#grad)" d="M10 2.62639L8.54072 7.33639C8.34848 7.95687 7.79714 8.37696 7.17504 8.37696H2.45272L6.27316 11.2879C6.77645 11.6714 6.98704 12.3511 6.7948 12.9716L5.33552 17.6816L9.15596 14.7706C9.65925 14.3872 10.3408 14.3872 10.844 14.7706L14.6645 17.6816L13.2052 12.9716C13.013 12.3511 13.2236 11.6714 13.7268 11.2879L17.5473 8.37696H12.825C12.2029 8.37696 11.6515 7.95687 11.4593 7.33639L10 2.62639ZM10.4552 0.846855C10.3119 0.384382 9.68806 0.384382 9.54477 0.846855L7.63027 7.02616C7.56619 7.23298 7.38241 7.37301 7.17504 7.37301H0.979572C0.515888 7.37301 0.323098 7.99527 0.698226 8.28109L5.71047 12.1001C5.87823 12.2279 5.94843 12.4545 5.88435 12.6613L3.96984 18.8406C3.82656 19.3031 4.33129 19.6877 4.70642 19.4019L9.71865 15.5828C9.88642 15.455 10.1136 15.455 10.2813 15.5828L15.2936 19.4019C15.6687 19.6877 16.1734 19.3031 16.0302 18.8406L14.1157 12.6613C14.0516 12.4545 14.1218 12.2279 14.2895 12.1001L19.3018 8.28109C19.6769 7.99527 19.4841 7.37301 19.0204 7.37301H12.825C12.6176 7.37301 12.4338 7.23298 12.3697 7.02616L10.4552 0.846855Z" />
+                      </svg>
+                    {% else %}
+                      <svg class="icon color-stars-gray-title" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                        <path d="M10 2.62639L8.54072 7.33639C8.34848 7.95687 7.79714 8.37696 7.17504 8.37696H2.45272L6.27316 11.2879C6.77645 11.6714 6.98704 12.3511 6.7948 12.9716L5.33552 17.6816L9.15596 14.7706C9.65925 14.3872 10.3408 14.3872 10.844 14.7706L14.6645 17.6816L13.2052 12.9716C13.013 12.3511 13.2236 11.6714 13.7268 11.2879L17.5473 8.37696H12.825C12.2029 8.37696 11.6515 7.95687 11.4593 7.33639L10 2.62639ZM10.4552 0.846855C10.3119 0.384382 9.68806 0.384382 9.54477 0.846855L7.63027 7.02616C7.56619 7.23298 7.38241 7.37301 7.17504 7.37301H0.979572C0.515888 7.37301 0.323098 7.99527 0.698226 8.28109L5.71047 12.1001C5.87823 12.2279 5.94843 12.4545 5.88435 12.6613L3.96984 18.8406C3.82656 19.3031 4.33129 19.6877 4.70642 19.4019L9.71865 15.5828C9.88642 15.455 10.1136 15.455 10.2813 15.5828L15.2936 19.4019C15.6687 19.6877 16.1734 19.3031 16.0302 18.8406L14.1157 12.6613C14.0516 12.4545 14.1218 12.2279 14.2895 12.1001L19.3018 8.28109C19.6769 7.99527 19.4841 7.37301 19.0204 7.37301H12.825C12.6176 7.37301 12.4338 7.23298 12.3697 7.02616L10.4552 0.846855Z"/>
+                      </svg>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              
+            </span>
+            <span class="spr-summary-caption">
+              <span class="spr-summary-actions-togglereviews">{{ section.settings.debuttemoignage }}
+                <span aria-hidden="true">{{ product.metafields.reviews.rating_count }} {{ section.settings.fintemoignage }}</span>
+                <span class="visually-hidden">{{ product.metafields.reviews.rating_count }} {{ "accessibility.total_reviews" | t }}</span>
+              </span>
+            </span>
+            <span class="spr-summary-actions">
+            <a class="spr-summary-actions-newreview" target="_blank" href="{{ section.settings.linkavis }}" rel="noopener noreferrer"><strong>{{ section.settings.link_avis | escape }}</strong>
+            </a>
+            </span>
+          </div>
+
+          
+
+    <slider-component class="slider-mobile-gutter">
+      <ul class="testimonial-list contains-content-container grid grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop{% if show_mobile_slider or show_desktop_slider %} slider{% endif %}{% if show_mobile_slider %} slider--mobile grid--peek{% endif %}{% if show_desktop_slider %} slider--desktop{% endif %}{% if show_mobile_slider and show_desktop_slider %} slider--everywhere{% endif %}"
+        id="Slider-{{ section.id }}"
+        role="list"
+      >
+        {%- liquid
+          assign highest_ratio = 0
+          for block in section.blocks
+            if block.settings.image.aspect_ratio > highest_ratio
+              assign highest_ratio = block.settings.image.aspect_ratio
+            endif
+          endfor
+        -%}
+        {%- for block in section.blocks -%}
+          {%- assign empty_column = '' -%}
+          {%- if block.settings.image == blank and block.settings.title == blank and block.settings.text == blank and block.settings.link_label == blank -%}
+            {%- assign empty_column = ' testimonial-list__item--empty' -%}
+          {%- endif -%}
+
+          <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="testimonial-list__item grid__item{% if section.settings.column_alignment == 'center' %} center{% endif %}{{ empty_column }}{% if block.settings.offdesk-bloc %} offdesk{% endif %}{% if block.settings.offmob-bloc %} offmob{% endif %}" {{ block.shopify_attributes }}>            
+            <div class="testimonial-card content-container">
+              {%- if block.settings.image != blank -%}
+                {% if section.settings.image_ratio == 'adapt' or section.settings.image_ratio == 'circle' %}
+                  {% assign spaced_image = true %}
+                {% endif %}
+                <div class="testimonial-card__image-wrapper testimonial-card__image-wrapper--{{ section.settings.image_width }}-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
+                  <div class="media media--transparent media--{{ section.settings.image_ratio }}"
+                    {% if section.settings.image_ratio == 'adapt' %}
+                      style="padding-bottom: {{ 1 | divided_by: highest_ratio | times: 100 }}%;"
+                    {% endif %}>
+                    <img
+                      class="testimonial-card__image"
+                      srcset="{%- if block.settings.image.width >= 275 -%}{{ block.settings.image | image_url: width: 275 }} 275w,{%- endif -%}
+                        {%- if block.settings.image.width >= 550 -%}{{ block.settings.image | image_url: width: 550 }} 550w,{%- endif -%}
+                        {%- if block.settings.image.width >= 710 -%}{{ block.settings.image | image_url: width: 710 }} 710w,{%- endif -%}
+                        {%- if block.settings.image.width >= 1420 -%}{{ block.settings.image | image_url: width: 1420 }} 1420w,{%- endif -%}
+                        {{ block.settings.image | image_url }} {{ block.settings.image.width }}w"
+                      src="{{ block.settings.image | image_url: width: 550 }}"
+                      sizes="(min-width: 990px) {% if section.blocks.size <= 2 %}710px{% else %}550px{% endif %},
+                        (min-width: 750px) {% if section.blocks.size == 1 %}710px{% else %}550px{% endif %},
+                        calc(100vw - 30px)"
+                      alt="{{ block.settings.image.alt }}"
+                      height="{{ block.settings.image.height }}"
+                      width="{{ block.settings.image.width }}"
+                      loading="lazy"
+                    >
+                  </div>
+                </div>
+              {%- endif -%}
+              <div class="testimonial-card__info">
+
+                {%- if block.settings.title != blank -%}
+                  <h3>{{ block.settings.title | escape }}</h3>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <div class="rte">{{ block.settings.textauthor }}</div>
+                {%- endif -%}
+
+              
+                {% for i in (1..5) %}
+                  {% if i <= block.settings.star %}
+                  <svg class="icon color-stars-yellow" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <path d="M10 2.62639L8.54072 7.33639C8.34848 7.95687 7.79714 8.37696 7.17504 8.37696H2.45272L6.27316 11.2879C6.77645 11.6714 6.98704 12.3511 6.7948 12.9716L5.33552 17.6816L9.15596 14.7706C9.65925 14.3872 10.3408 14.3872 10.844 14.7706L14.6645 17.6816L13.2052 12.9716C13.013 12.3511 13.2236 11.6714 13.7268 11.2879L17.5473 8.37696H12.825C12.2029 8.37696 11.6515 7.95687 11.4593 7.33639L10 2.62639ZM10.4552 0.846855C10.3119 0.384382 9.68806 0.384382 9.54477 0.846855L7.63027 7.02616C7.56619 7.23298 7.38241 7.37301 7.17504 7.37301H0.979572C0.515888 7.37301 0.323098 7.99527 0.698226 8.28109L5.71047 12.1001C5.87823 12.2279 5.94843 12.4545 5.88435 12.6613L3.96984 18.8406C3.82656 19.3031 4.33129 19.6877 4.70642 19.4019L9.71865 15.5828C9.88642 15.455 10.1136 15.455 10.2813 15.5828L15.2936 19.4019C15.6687 19.6877 16.1734 19.3031 16.0302 18.8406L14.1157 12.6613C14.0516 12.4545 14.1218 12.2279 14.2895 12.1001L19.3018 8.28109C19.6769 7.99527 19.4841 7.37301 19.0204 7.37301H12.825C12.6176 7.37301 12.4338 7.23298 12.3697 7.02616L10.4552 0.846855Z"/>
+                  </svg>
+                  {% else %}
+                    {% assign t = i | minus: 1 %}
+                    {% if block.settings.star > t and block.settings.star < i %}
+                    <svg class="icon color-stars-yellow" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                      <defs>
+                        <linearGradient id="grad">
+                          <stop offset="50%" stop-color="#f2ca0b"/>
+                          <stop offset="50%" stop-color="#dddddd"/>
+                        </linearGradient>
+                      </defs>
+                      <path fill="url(#grad)" d="M10 2.62639L8.54072 7.33639C8.34848 7.95687 7.79714 8.37696 7.17504 8.37696H2.45272L6.27316 11.2879C6.77645 11.6714 6.98704 12.3511 6.7948 12.9716L5.33552 17.6816L9.15596 14.7706C9.65925 14.3872 10.3408 14.3872 10.844 14.7706L14.6645 17.6816L13.2052 12.9716C13.013 12.3511 13.2236 11.6714 13.7268 11.2879L17.5473 8.37696H12.825C12.2029 8.37696 11.6515 7.95687 11.4593 7.33639L10 2.62639ZM10.4552 0.846855C10.3119 0.384382 9.68806 0.384382 9.54477 0.846855L7.63027 7.02616C7.56619 7.23298 7.38241 7.37301 7.17504 7.37301H0.979572C0.515888 7.37301 0.323098 7.99527 0.698226 8.28109L5.71047 12.1001C5.87823 12.2279 5.94843 12.4545 5.88435 12.6613L3.96984 18.8406C3.82656 19.3031 4.33129 19.6877 4.70642 19.4019L9.71865 15.5828C9.88642 15.455 10.1136 15.455 10.2813 15.5828L15.2936 19.4019C15.6687 19.6877 16.1734 19.3031 16.0302 18.8406L14.1157 12.6613C14.0516 12.4545 14.1218 12.2279 14.2895 12.1001L19.3018 8.28109C19.6769 7.99527 19.4841 7.37301 19.0204 7.37301H12.825C12.6176 7.37301 12.4338 7.23298 12.3697 7.02616L10.4552 0.846855Z" />
+                    </svg>
+                    {% else %}
+                	<svg class="icon color-stars-gray" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                      <path d="M10 2.62639L8.54072 7.33639C8.34848 7.95687 7.79714 8.37696 7.17504 8.37696H2.45272L6.27316 11.2879C6.77645 11.6714 6.98704 12.3511 6.7948 12.9716L5.33552 17.6816L9.15596 14.7706C9.65925 14.3872 10.3408 14.3872 10.844 14.7706L14.6645 17.6816L13.2052 12.9716C13.013 12.3511 13.2236 11.6714 13.7268 11.2879L17.5473 8.37696H12.825C12.2029 8.37696 11.6515 7.95687 11.4593 7.33639L10 2.62639ZM10.4552 0.846855C10.3119 0.384382 9.68806 0.384382 9.54477 0.846855L7.63027 7.02616C7.56619 7.23298 7.38241 7.37301 7.17504 7.37301H0.979572C0.515888 7.37301 0.323098 7.99527 0.698226 8.28109L5.71047 12.1001C5.87823 12.2279 5.94843 12.4545 5.88435 12.6613L3.96984 18.8406C3.82656 19.3031 4.33129 19.6877 4.70642 19.4019L9.71865 15.5828C9.88642 15.455 10.1136 15.455 10.2813 15.5828L15.2936 19.4019C15.6687 19.6877 16.1734 19.3031 16.0302 18.8406L14.1157 12.6613C14.0516 12.4545 14.1218 12.2279 14.2895 12.1001L19.3018 8.28109C19.6769 7.99527 19.4841 7.37301 19.0204 7.37301H12.825C12.6176 7.37301 12.4338 7.23298 12.3697 7.02616L10.4552 0.846855Z"/>
+                    </svg>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              
+                
+                {%- if block.settings.text != blank -%}
+                    <div class="spr-review-content">
+                      <div class="spr-review-content-wrap spr_review_content_scroll">
+                          <div class="spr-review-content-body">{{ block.settings.text }}</div>
+                            <div class="spr_review_slide_scroll_svg_warp">
+                				<svg class="Icon Icon--arrow-bottom" viewBox="0 0 21 11">
+            					<polyline fill="none" stroke="currentColor" points="0.5 0.5 10.5 10.5 20.5 0.5"></polyline>
+                				</svg>
+                    		</div>  
+                      </div>
+                      <div class="spr_review_slide_below_bg">
+                		<div class="spr_review_below_bg_svg_wrap"> <span></span></div> 
+                      </div>
+                    </div>
+                {%- endif -%}
+
+                        
+                {%- if block.settings.link_label != blank -%}
+                  <a class="link animate-arrow" {% if block.settings.link == blank %}role="link" aria-disabled="true"{% else %}href="{{ block.settings.link }}" target="_blank"{% endif %}>{{ block.settings.link_label | escape }}<span class="icon-wrap">&nbsp;{% render 'icon-arrow' %}</span></a>
+                {%- endif -%}
+              </div>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if show_mobile_slider or show_desktop_slider -%}
+        <div class="slider-buttons no-js-hidden">
+          <button type="button" class="slider-button slider-button--prev{% unless section.settings.show_arrow_desktop %} offdesk{% endunless %}{% unless section.settings.show_arrow_mobile %} offmob{% endunless %}" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}" aria-controls="Slider-{{ section.id }}">{% render 'icon-arrows' %}</button>
+          
+          <!-- Pagination -->
+          {% if settings.show_pagination %}
+            <div class="slider-counter caption{% unless section.settings.show_carrousel_desktop %} offdesk{% endunless %}{% unless section.settings.show_carrousel_mobile %} offmob{% endunless %}">
+              <span class="slider-counter--current">1</span>
+                <span aria-hidden="true"> / </span>
+                <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+              <span class="slider-counter--total">{{ section.blocks.size }}</span>
+            </div>
+          {% endif %}
+          
+          <button type="button" class="slider-button slider-button--next{% unless section.settings.show_arrow_desktop %} offdesk{% endunless %}{% unless section.settings.show_arrow_mobile %} offmob{% endunless %}" name="next" aria-label="{{ 'general.slider.next_slide' | t }}" aria-controls="Slider-{{ section.id }}">{% render 'icon-arrows' %}</button>
+        </div>
+      {%- endif -%}
+    </slider-component>
+  </div>
+</div>
+
+{% javascript %}
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('spr_review_slide_scroll_svg_warp')) {
+    var target = event.target.parentNode.querySelector('.spr-review-content-body');
+    target.scrollTo({ top: target.scrollHeight - target.clientHeight, behavior: 'smooth' });
+    
+    var elements = document.querySelectorAll('.spr_review_slide_scroll_svg_warp');
+    elements.forEach(function(element) {
+      element.style.display = (element.style.display === 'none') ? 'block' : 'none';
+    });
+    
+    event.preventDefault();
+    return false;
+  }
+});
+{% endjavascript %}  
+
+{% schema %}
+{
+  "name": "Témoignages",
+  "class": "section",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.multicolumn.settings.background_style.options__1.label"
+        },
+        {
+          "value": "primary",
+          "label": "t:sections.multicolumn.settings.background_style.options__2.label"
+        }
+      ],
+      "default": "primary",
+      "label": "t:sections.multicolumn.settings.background_style.label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Témoignages",
+      "label": "t:sections.multicolumn.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "h1"
+        },
+        {
+          "value": "h2",
+          "label": "h2"
+        },
+        {
+          "value": "h3",
+          "label": "h3"
+        },
+        {
+          "value": "span",
+          "label": "Aucune"
+        }
+      ],
+      "default": "h2",
+      "label": "Balise titre (SEO)"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "À gauche"
+        },
+        {
+          "value": "center",
+          "label": "Au centre"
+        }
+      ],
+      "default": "left",
+      "label": "Alignement du titre"
+    },
+    {
+      "type":"header",
+      "content": "🌈 SVG Sous-titre",
+      "info": "👉 Optimisation Fireweb avec le SVG code"
+    },
+    {
+      "type": "html",
+      "id": "custom_svg_fe",
+      "label": "SVG personnalisé",
+      "info": "Ajouter le code SVG, sinon laisser vide."
+    },
+    {
+      "type": "color",
+      "id": "colorfeh2",
+      "label": "Couleur du SVG",
+      "default": "#000"
+    },
+    {
+      "type": "range",
+      "id": "widthfeh2",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "rem",
+      "label": "Taille du SVG",
+      "default": 20
+    },
+    {
+      "type": "paragraph",
+      "content": "ℹ️ Pour appliquer un effet > Paramètres du thème > EFFECTS"
+    },
+    {
+      "type":"header",
+      "content": "⭐️ Information Sous-titre"
+    },
+    {
+      "type": "range",
+      "id": "startitle",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "★",
+      "label": "Nombre d'étoiles /5",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "debuttemoignage",
+      "default": "Basé sur",
+      "label": "Début du texte"
+    },
+    {
+      "type": "text",
+      "id": "fintemoignage",
+      "default": "avis vérifiés",
+      "label": "Fin du texte"
+    },    
+    {
+      "type": "text",
+      "id": "link_avis",
+      "label": "t:sections.multicolumn.blocks.column.settings.link_label.label",
+      "default": "Écrire un avis"
+    },
+    {
+      "type": "url",
+      "id": "linkavis",
+      "label": "t:sections.multicolumn.blocks.column.settings.link.label"
+    },
+    {
+      "type": "select",
+      "id": "image_width",
+      "options": [
+        {
+          "value": "third",
+          "label": "t:sections.multicolumn.settings.image_width.options__1.label"
+        },
+        {
+          "value": "half",
+          "label": "t:sections.multicolumn.settings.image_width.options__2.label"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.multicolumn.settings.image_width.options__3.label"
+        }
+      ],
+      "default": "full",
+      "label": "t:sections.multicolumn.settings.image_width.label"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__3.label"
+        },
+        {
+          "value": "circle",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__4.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.multicolumn.settings.image_ratio.label"
+    },
+    {
+      "type": "select",
+      "id": "column_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.multicolumn.settings.column_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.multicolumn.settings.column_alignment.options__2.label"
+        }
+      ],
+      "default": "left",
+      "label": "t:sections.multicolumn.settings.column_alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Ordinateur"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "Nombre de colonnes"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_carrousel_desktop",
+      "default": true,
+      "label": "Afficher les paginations"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow_desktop",
+      "default": true,
+      "label": "Afficher les flèches"
+    },
+    {
+      "type": "checkbox",
+      "id": "offdesk",
+      "default": false,
+      "label": "Cacher la section"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.multicolumn.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.multicolumn.settings.columns_mobile.options__2.label"
+        }
+      ],
+      "default": "1",
+      "label": "Nombre de colonnes"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_carrousel_mobile",
+      "default": false,
+      "label": "Afficher les paginations"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow_mobile",
+      "default": true,
+      "label": "Afficher les flèches"
+    },
+    {
+      "type": "checkbox",
+      "id": "offmob",
+      "default": false,
+      "label": "Cacher la section"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "avis",
+      "name": "Avis",
+      "settings": [
+     	{
+          "type": "range",
+          "id": "star",
+          "min": 0,
+          "max": 5,
+          "step": 0.5,
+          "unit": "★",
+          "label": "Nombre d'étoiles /5",
+          "default": 5
+      	},
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.multicolumn.blocks.column.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Produit parfait",
+          "label": "t:sections.multicolumn.blocks.column.settings.title.label"
+        },
+        {		
+          "type": "html",
+          "id": "textauthor",
+          "default": "<p>Auteur John Doe</p>",
+          "label": "Auteur/HTML",
+          "placeholder": "Accept Html Code"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Écrivez un retour à propos de vos produits. Ajustez le nombre de colonnes en fonction de la taille moyenne des messages.</p>",
+          "label": "t:sections.multicolumn.blocks.column.settings.text.label"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "t:sections.multicolumn.blocks.column.settings.link_label.label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.multicolumn.blocks.column.settings.link.label"
+        },
+        {
+          "type": "header",
+          "content": "Ordinateur"
+        },
+        {
+          "type": "checkbox",
+          "id": "offdesk-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "checkbox",
+          "id": "offmob-bloc",
+          "default": false,
+          "label": "Cacher le bloc"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Témoignages",
+      "blocks": [
+        {
+          "type": "avis"
+        },
+        {
+          "type": "avis"
+        },
+        {
+          "type": "avis"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+

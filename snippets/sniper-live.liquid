@@ -1,0 +1,71 @@
+{% style %}
+.sniper-estime-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.sniper-estime-container {
+  fill: currentColor;
+}
+#sniper-live p {
+  font-size: .875em;
+}
+@media screen and (max-width: 640px) {
+      #sniper-live p {
+         font-size: .875em;
+      }
+    }
+.sniper {
+  color: {{ block.settings.colorlive }};
+}
+.bloc-snipers span {
+  color: {{ block.settings.colorlive }};
+}
+  
+{% endstyle %}
+
+
+  <div class="sniper-estime-container product-block-margin-{{ block.settings.margin }}{% if block.settings.class != blank %} {{ block.settings.class }}{% endif %}{% if block.settings.offdesk-bloc %} offdesk{% endif %}{% if block.settings.offmob-bloc %} offmob{% endif %}">
+    {% render 'icon-accordion', icon: block.settings.icon %}
+    <div id="sniper-live">
+      <p class="bloc-snipers" style="margin: 0;display: block;">{{ block.settings.debutlive }} <span class="generate sniper" style="font-weight: bold;"></span> {{ block.settings.finlive }}</p>
+    </div>
+  </div>
+
+  
+
+<script>
+// ---------------------------------------------------------------------------
+// Start Sniper Fireweb
+// ---------------------------------------------------------------------------
+
+    //See number of user on page
+  setInterval(function sniper(){
+    var generator = {
+  
+    min: {{ block.settings.min }}, //Valeur minimale
+    max: {{ block.settings.max }}, //Valeur maximumale
+  
+    getRandom: function () {
+        return Math.round(Math.random() * (this.max - this.min) + this.min);
+      },
+      setMin: function (newMin) {
+        this.min = parseInt(newMin);
+      },
+      setMax: function (newMax) {
+        this.max = parseInt(newMax);
+      }
+    };
+    if (document.querySelector('.sniper')) {
+      var number = document.querySelector('.sniper');
+      number.textContent = generator.getRandom();
+    };
+  }, 3000);
+
+</script>
+
+

@@ -1,0 +1,887 @@
+{{ 'section-parallax.css' | asset_url | stylesheet_tag }}
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  {% render 'section-style' %}
+  
+  @media only screen and (max-width: 767px) {
+    .small--hide {
+    display: none !important; }
+    }
+  @media only screen and (min-width: 768px) {
+    .txt-par1-hd--{{ section.id }} {
+      margin: 20px;
+      font-size: {{section.settings.par_hd_sz}}px;
+      letter-spacing: {{section.settings.par_letter_sp}}px;
+      font-weight : bold;
+    }
+    .txt-par1-subhd--{{section.id}} {
+      font-size: {{section.settings.par_subhd_sz}}px;
+      letter-spacing: {{section.settings.par_letter_sp}}px;
+    }
+    .parallax--{{ section.id }} a {
+      font-size:{{section.settings.par_button_sz}}px;
+      letter-spacing: {{section.settings.par_letter_sp}}px;
+    }
+    .parallax--{{ section.id }}{
+      position: relative;
+      z-index: 1;
+      height:{{section.settings.par_img_sz}}px;
+    }
+    .parallax-over--{{ section.id }}::before{
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: {{section.settings.color_over}};
+      opacity: {{section.settings.par_opacity}}%;
+    }
+    .text-block--{{section.id}} {
+      position: absolute;
+      text-align : {{section.settings.par_txt_align}};
+      top: {{section.settings.par_txt_top_pos}}%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: inline-block;width : 90%;
+    }
+  }
+  .txt-par1-hd--{{ section.id }} {
+    color: {{ section.settings.color_par1_hd_clr }};
+  }
+  .txt-par1-subhd--{{section.id}} {
+    color:{{ section.settings.color_par1_subhd_clr }};
+  }
+
+  .banner__buttons--{{section.id}} {
+        margin-top: 2rem;
+  }
+{% endstyle %}
+
+
+<div class="small--hide {% if section.settings.paral-full == blank %} page-width {% endif %}">
+   {% for block in section.blocks limit: section.blocks.size %} 
+  {% if block.settings.image != blank %}
+   <div class="parallax--{{ section.id }} {% if section.settings.par-en-over %} parallax-over--{{ section.id }} {% endif %} lazyload" 
+      style="    
+      background-repeat: no-repeat;
+        background-attachment: fixed;       
+      background-position: center top;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;"     
+      data-expand="-40"
+        data-bgset="{{block.settings.image | img_url:''}}";
+        title="{{block.settings.image.alt | escape }}">
+      <div class="text-block--{{section.id}}">
+         {% if block.settings.txt1-hd1 != blank %}         
+            <{{ block.settings.heading_tag }} {% if settings.effect_apply_title_enable%} data-aos="{{ settings.animation_title_name }}"{% endif %} class="txt-par1-hd--{{ section.id }} {{block.settings.par1_hd}}"> {{block.settings.txt1-hd1}}
+              <div class="fe_h2_svg"><span style="fill:{{ block.settings.colorfeh2 }}; width:{{ block.settings.widthfeh2 }}rem;" {% if settings.effect_apply_enable%} data-aos="{{ settings.animation_name }}" data-aos-delay="500"{% endif %}> {%if block.settings.custom_svg_fe != blank %} {{ block.settings.custom_svg_fe }}{% endif %}</span>
+                </div>
+            </{{ block.settings.heading_tag }}>                                               
+        {% endif %}
+        {% if block.settings.txt1-hd2 != blank %}
+          <div class="banner__text body txt-par1-subhd--{{section.id}} {{block.settings.par1_subhd}}"> 
+            <span>{{block.settings.txt1-hd2}}</span>
+          </div>  
+        {% endif %}
+         {% if block.settings.par1_showbutton %}
+           <div class="banner__buttons--{{section.id}}" {% if settings.effect_apply_btn_enable%} data-aos="{{ settings.animation_btn_name }}" data-aos-delay="1000"{% endif %}>
+              <a class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %} {{block.settings.par1_button_pos}}" href="{{ block.settings.par1_button_link }}">
+              {{ block.settings.par1_button_label | escape }}
+              </a>
+           </div>
+         {% endif %} 
+
+              
+      </div>
+   </div>
+           {% else %}      
+    <span>
+          {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+          {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+        </span>
+    {% endif %}
+   {% endfor %}
+</div>
+
+{% schema %}
+{
+"name": {
+        "cs": "Paralaxa",
+        "da": "Parallaks",
+        "de": "Parallaxe",
+        "en": "Parallax",
+        "es": "Paralaje",
+        "fi": "Parallaksi",
+        "fr": "Parallaxe",
+        "it": "Parallasse",
+        "ja": "視差",
+        "ko": "시차",
+        "nb": "Parallaks",
+        "nl": "Parallax",
+        "pl": "Paralaksa",
+        "pt-BR": "Paralaxe",
+        "pt-PT": "Paralaxe",
+        "sv": "Parallax",
+        "th": "พารัลแลกซ์",
+        "tr": "Paralaks",
+        "vi": "Thị sai",
+        "zh-CN": "视差",
+        "zh-TW": "視差"
+},
+"settings": [
+{
+"type": "checkbox",
+"id": "paral-full",
+"label": {
+            "cs": "Plná šířka",
+            "da": "Fuld bredde",
+            "de": "Volle Breite",
+            "en": "Full width",
+            "es": "Ancho completo",
+            "fi": "Täysi leveys",
+            "fr": "Pleine largeur",
+            "it": "Intera larghezza",
+            "ja": "全幅",
+            "ko": "전체 폭",
+            "nb": "Full bredde",
+            "nl": "Volledige breedte",
+            "pl": "Pełna szerokość",
+            "pt-BR": "Largura completa",
+            "pt-PT": "Largura total",
+            "sv": "Full bredd",
+            "th": "เต็มความกว้าง",
+            "tr": "Tam genişlik",
+            "vi": "Độ rộng đầy đủ",
+            "zh-CN": "全宽",
+            "zh-TW": "全寬度"
+},
+"default": true
+},
+{
+"type": "text",
+"id": "par_img_sz",
+"label": {
+        "cs": "Výška obrazu",
+        "da": "Billedhøjde",
+        "de": "Bildhöhe",
+        "en": "Image height",
+        "es": "Altura de imagen",
+        "fi": "Kuvan korkeus",
+        "fr": "Hauteur de l'image",
+        "it": "Altezza immagine",
+        "ja": "画像の高さ",
+        "ko": "이미지 높이",
+        "nb": "Bildens høyde",
+        "nl": "Hoogte afbeelding",
+        "pl": "Wysokość obrazu",
+        "pt-BR": "Altura da imagem",
+        "pt-PT": "Altura da imagem",
+        "sv": "Bildhöjd",
+        "th": "ความสูงของภาพ",
+        "tr": "Görüntü yüksekliği",
+        "vi": "Chiều cao hình ảnh",
+        "zh-CN": "图片高度",
+        "zh-TW": "圖片高度"
+},
+"default": "400"
+},
+{
+"type": "text",
+"id": "par_hd_sz",
+"label": {
+        "cs": "Velikost názvu",
+        "da": "Titelstørrelse",
+        "de": "Größe des Titels",
+        "en": "Header text size",
+        "es": "Tamaño del título",
+        "fi": "Otsikon koko",
+        "fr": "Taille du titre",
+        "it": "Dimensione del titolo",
+        "ja": "タイトルサイズ",
+        "ko": "제목 크기",
+        "nb": "Tittelstørrelse",
+        "nl": "Titel grootte",
+        "pl": "Rozmiar tytułu",
+        "pt-BR": "Tamanho do título",
+        "pt-PT": "Tamanho do título",
+        "sv": "Titelstorlek",
+        "th": "ขนาดชื่อเรื่อง",
+        "tr": "Başlık boyutu",
+        "vi": "Kích thước tiêu đề",
+        "zh-CN": "标题大小",
+        "zh-TW": "標題大小"
+},
+"default": "55"
+},
+{
+"type": "text",
+"id": "par_subhd_sz",
+"label": {
+        "cs": "Velikost titulků",
+        "da": "Undertekststørrelse",
+        "de": "Subheader-Größe",
+        "en": "Subheader size",
+        "es": "Tamaño del subtítulo",
+        "fi": "Tekstityksen koko",
+        "fr": "Taille du sous-titre",
+        "it": "Dimensione dei sottotitoli",
+        "ja": "字幕サイズ",
+        "ko": "자막 크기",
+        "nb": "Tekststørrelse",
+        "nl": "Ondertitel grootte",
+        "pl": "Rozmiar napisów",
+        "pt-BR": "Tamanho da legenda",
+        "pt-PT": "Tamanho da legenda",
+        "sv": "Undertextstorlek",
+        "th": "ขนาดคำบรรยาย",
+        "tr": "altyazı boyutu",
+        "vi": "Kích thước phụ đề",
+        "zh-CN": "字幕大小",
+        "zh-TW": "字幕大小"
+},
+"default": "25"
+},
+{
+"type": "text",
+"id": "par_letter_sp",
+"label": {
+        "cs": "Mezery mezi písmeny",
+        "da": "Mellemrum mellem bogstaver",
+        "de": "Buchstabenabstand",
+        "en": "Letter spacing",
+        "es": "Espaciado entre letras ",
+        "fi": "Kirjainväli",
+        "fr": "Espacement des lettres",
+        "it": "Spaziatura del carattere",
+        "ja": "文字間隔",
+        "ko": "문자 간격",
+        "nb": "Avstand mellom bokstavene",
+        "nl": "Letterafstand",
+        "pl": "Odstępy między literami",
+        "pt-BR": "Espaçamento entre letras",
+        "pt-PT": "Espaçamento entre letras",
+        "sv": "Teckenavstånd",
+        "th": "ระยะห่างระหว่างตัวอักษร",
+        "tr": "Harf boşluğu",
+        "vi": "Khoảng cách giữa các chữ cái",
+        "zh-CN": "字母间距",
+        "zh-TW": "字母間距"
+},
+"default": "1"
+},
+{
+"type": "radio",
+"id": "par_txt_align",
+"options": [
+{ "value": "right", 
+"label": {
+                "cs": "Doprava",
+                "da": "Højre",
+                "de": "Rechts",
+                "en": "Right",
+                "es": "Derecha",
+                "fi": "Oikea",
+                "fr": "Droite",
+                "it": "Destra",
+                "ja": "右",
+                "ko": "오른쪽",
+                "nb": "Høyre",
+                "nl": "Rechts",
+                "pl": "Do prawej",
+                "pt-BR": "Direita",
+                "pt-PT": "Direita",
+                "sv": "Höger",
+                "th": "ด้านขวา",
+                "tr": "Sağ",
+                "vi": "Bên phải",
+                "zh-CN": "右侧",
+                "zh-TW": "右方"
+}
+},
+{ "value": "left", 
+"label": {
+            "cs": "Doleva",
+            "da": "Venstre",
+            "de": "Links",
+            "en": "Left",
+            "es": "Izquierda",
+            "fi": "Vasen",
+            "fr": "Gauche",
+            "it": "Sinistra",
+            "ja": "左",
+            "ko": "왼쪽",
+            "nb": "Venstre",
+            "nl": "Links",
+            "pl": "Do lewej",
+            "pt-BR": "Esquerda",
+            "pt-PT": "Esquerda",
+            "sv": "Vänster",
+            "th": "ด้านซ้าย",
+            "tr": "Sol",
+            "vi": "Bên trái",
+            "zh-CN": "左侧",
+            "zh-TW": "左方"
+}
+},
+{ "value": "center",
+"label": {
+            "cs": "Na střed",
+            "da": "Centreret",
+            "de": "Mittig",
+            "en": "Centered",
+            "es": "Centrada",
+            "fi": "Keskitetty",
+            "fr": "Centré",
+            "it": "Centrato",
+            "ja": "中央揃え",
+            "ko": "센터 맞추기",
+            "nb": "Sentrert",
+            "nl": "Gecentreerd",
+            "pl": "Wyśrodkowane",
+            "pt-BR": "Centralizado",
+            "pt-PT": "Centrado",
+            "sv": "Centrera",
+            "th": "ตรงกลาง",
+            "tr": "Orta",
+            "vi": "Giữa",
+            "zh-CN": "居中",
+            "zh-TW": "置中"
+}
+}
+],
+"label": {
+        "cs": "Zarovnání textu",
+        "da": "Tekstjustering",
+        "de": "Textausrichtung",
+        "en": "Text alignment",
+        "es": "Alineación de texto",
+        "fi": "Tekstin tasaus",
+        "fr": "Alignement du texte",
+        "it": "Allineamento del testo",
+        "ja": "テキストアラインメント",
+        "ko": "텍스트 정렬",
+        "nb": "Tekstjustering",
+        "nl": "Tekstuitlijning",
+        "pl": "Wyrównanie tekstu",
+        "pt-BR": "Alinhamento de texto",
+        "pt-PT": "Alinhamento de texto",
+        "sv": "Textjustering",
+        "th": "การจัดตำแหน่งข้อความ",
+        "tr": "Metin hizalaması",
+        "vi": "Căn chỉnh văn bản",
+        "zh-CN": "文本对齐方式",
+        "zh-TW": "文字對齊"
+},
+"default":   "left"
+},
+{
+"type": "text",
+"id": "par_txt_top_pos",
+"label": {
+        "cs": "Pozice textu v%",
+        "da": "Tekstposition i%",
+        "de": "Textposition in %",
+        "en": "Text position in %",
+        "es": "Posición del texto en%",
+        "fi": "Tekstin sijainti prosentteina",
+        "fr": "Position du texte en %",
+        "it": "Posizione del testo in %",
+        "ja": "％単位のテキスト位置",
+        "ko": "%의 텍스트 위치",
+        "nb": "Tekstposisjon i%",
+        "nl": "Tekstpositie in %",
+        "pl": "Pozycja tekstu w %",
+        "pt-BR": "Posição do texto em%",
+        "pt-PT": "Posição do texto em%",
+        "sv": "Textposition i%",
+        "th": "ตำแหน่งข้อความใน%",
+        "tr": "% olarak metin konumu",
+        "vi": "Vị trí văn bản trong%",
+        "zh-CN": "以 % 为单位的文本位置",
+        "zh-TW": "以 % 為單位的文本位置"
+},
+"default": "50"
+},
+{
+"type": "checkbox",
+"id": "par-en-over",
+"label": {
+        "cs": "Povolit překrytí",
+        "da": "Aktivér overlay",
+        "de": "Overlay aktivieren",
+        "en": "Enable overlay",
+        "es": "Habilitar superposición",
+        "fi": "Ota peittokuva käyttöön",
+        "fr": "Activer la superposition",
+        "it": "Abilita sovrapposizione",
+        "ja": "オーバーレイを有効にする",
+        "ko": "오버레이 활성화",
+        "nb": "Aktiver overlegg",
+        "nl": "Overlay inschakelen",
+        "pl": "Włącz nakładkę",
+        "pt-BR": "Habilitar sobreposição",
+        "pt-PT": "Habilitar sobreposição",
+        "sv": "Aktivera överlägg",
+        "th": "เปิดใช้งานการวางซ้อน",
+        "tr": "Yer paylaşımını etkinleştir",
+        "vi": "Bật lớp phủ",
+        "zh-CN": "启用叠加",
+        "zh-TW": "啟用疊加"
+},
+"default": true
+},
+      {
+        "type": "color",
+        "id": "color_over",
+        "label": {
+        "cs": "Barva překrytí",
+        "da": "Overlay farve",
+        "de": "Überlagerungsfarbe",
+        "en": "Overlay color",
+        "es": "Color de superposición",
+        "fi": "Peitteen väri",
+        "fr": "Couleur de superposition",
+        "it": "Colore della sovrapposizione",
+        "ja": "オーバーレイカラー",
+        "ko": "오버레이 색상",
+        "nb": "Overleggsfarge",
+        "nl": "Overlaykleur",
+        "pl": "Kolor nakładki",
+        "pt-BR": "Cor de sobreposição",
+        "pt-PT": "Cor de sobreposição",
+        "sv": "Överläggsfärg",
+        "th": "สีซ้อนทับ",
+        "tr": "Kaplama rengi",
+        "vi": "Lớp phủ màu",
+        "zh-CN": "叠加颜色",
+        "zh-TW": "疊加顏色"
+        },
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "par_opacity",
+        "label": {
+          "cs": "Neprůhlednost",
+          "da": "Uigennemsigtighed",
+          "de": "Opazität",
+          "en": "Opacity",
+          "es": "Opacidad",
+          "fi": "Sameus",
+          "fr": "Opacité",
+          "it": "Opacità",
+          "ja": "不透過率",
+          "ko": "불투명도",
+          "nb": "Gjennomsiktighet",
+          "nl": "Doorschijnendheid",
+          "pl": "Nieprzezroczystość",
+          "pt-BR": "Opacidade",
+          "pt-PT": "Opacidade",
+          "sv": "Opacitet",
+          "th": "ความทึบ",
+          "tr": "Opaklık",
+          "vi": "Độ chắn sáng",
+          "zh-CN": "不透明度",
+          "zh-TW": "透明度"
+        },
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": {
+        "cs": "%",
+        "da": "%",
+        "de": "%",
+        "en": "%",
+        "es": "%",
+        "fi": "%",
+        "fr": "%",
+        "it": "%",
+        "ja": "%",
+        "ko": "%",
+        "nb": "%",
+        "nl": "%",
+        "pl": "%",
+        "pt-BR": "%",
+        "pt-PT": "%",
+        "sv": "%",
+        "th": "%",
+        "tr": "%",
+        "vi": "%",
+        "zh-CN": "%",
+        "zh-TW": "%"
+        },
+        "default": 50
+      },
+      {
+        "type": "color",
+        "id": "color_par1_hd_clr",
+        "label": {
+        "cs": "Nadpis",
+        "da": "Overskrift",
+        "de": "Titel",
+        "en": "Heading",
+        "es": "Título",
+        "fi": "Otsake",
+        "fr": "En-tête",
+        "it": "Heading",
+        "ja": "見出し",
+        "ko": "제목",
+        "nb": "Overskrift",
+        "nl": "Kop",
+        "pl": "Nagłówek",
+        "pt-BR": "Título",
+        "pt-PT": "Título",
+        "sv": "Rubrik",
+        "th": "ส่วนหัว",
+        "tr": "Başlık",
+        "vi": "Tiêu đề",
+        "zh-CN": "标题",
+        "zh-TW": "標題"
+        },
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "color_par1_subhd_clr",
+        "label": {
+            "cs": "Podnadpis",
+            "da": "Underoverskrift",
+            "de": "Untertitel",
+            "en": "Subheading",
+            "es": "Subtítulo",
+            "fi": "Alaotsikko",
+            "fr": "Sous-titre",
+            "it": "Sottotitolo",
+            "ja": "小見出し",
+            "ko": "소제목",
+            "nb": "Underoverskrift",
+            "nl": "Subkop",
+            "pl": "Nagłówek podrzędny",
+            "pt-BR": "Subtítulo",
+            "pt-PT": "Subtítulo",
+            "sv": "Underrubrik",
+            "th": "หัวเรื่องย่อย",
+            "tr": "Alt başlık",
+            "vi": "Tiêu đề phụ",
+            "zh-CN": "副标题",
+            "zh-TW": "子標題"
+        },
+        "default": "#DEDEDE"
+      }
+],
+"max_blocks": 3,
+"blocks": [
+{
+"type": "text",
+"name": {
+        "cs": "Paralaxa",
+        "da": "Parallaks",
+        "de": "Parallaxe",
+        "en": "Parallax",
+        "es": "Paralaje",
+        "fi": "Parallaksi",
+        "fr": "Parallaxe",
+        "it": "Parallasse",
+        "ja": "視差",
+        "ko": "시차",
+        "nb": "Parallaks",
+        "nl": "Parallax",
+        "pl": "Paralaksa",
+        "pt-BR": "Paralaxe",
+        "pt-PT": "Paralaxe",
+        "sv": "Parallax",
+        "th": "พารัลแลกซ์",
+        "tr": "Paralaks",
+        "vi": "Thị sai",
+        "zh-CN": "视差",
+        "zh-TW": "視差"
+},
+"settings": [
+{
+"type": "image_picker",
+"id": "image",
+"label": {
+        "cs": "Obrázek",
+        "da": "Billede",
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fi": "Kuva",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "ko": "이미지",
+        "nb": "Bilde",
+        "nl": "Afbeelding",
+        "pl": "Obraz",
+        "pt-BR": "Imagem",
+        "pt-PT": "Imagem",
+        "sv": "Bild",
+        "th": "รูปภาพ",
+        "tr": "Görsel",
+        "vi": "Hình ảnh",
+        "zh-CN": "图片",
+        "zh-TW": "圖片"
+}
+},
+{
+"type": "text",
+"id": "txt1-hd1",
+"label": {
+        "cs": "Nadpis",
+        "da": "Overskrift",
+        "de": "Titel",
+        "en": "Heading",
+        "es": "Título",
+        "fi": "Otsake",
+        "fr": "En-tête",
+        "it": "Heading",
+        "ja": "見出し",
+        "ko": "제목",
+        "nb": "Overskrift",
+        "nl": "Kop",
+        "pl": "Nagłówek",
+        "pt-BR": "Título",
+        "pt-PT": "Título",
+        "sv": "Rubrik",
+        "th": "ส่วนหัว",
+        "tr": "Başlık",
+        "vi": "Tiêu đề",
+        "zh-CN": "标题",
+        "zh-TW": "標題"
+        }
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "h1"
+            },
+            {
+              "value": "h2",
+              "label": "h2"
+            },
+            {
+              "value": "h3",
+              "label": "h3"
+            },
+            {
+              "value": "span",
+              "label": "Aucune"
+            }
+          ],
+          "default": "h2",
+          "label": "Balise titre (SEO)"
+        },
+        {
+          "type":"header",
+          "content": "🌈 SVG Sous-titre",
+          "info": "👉 Optimisation Fireweb avec le SVG code"
+        },
+        {
+          "type": "html",
+          "id": "custom_svg_fe",
+          "label": "SVG personnalisé",
+          "info": "Ajouter le code SVG, sinon laisser vide."
+        },
+        {
+          "type": "color",
+          "id": "colorfeh2",
+          "label": "Couleur du SVG",
+          "default": "#000"
+        },
+        {
+          "type": "range",
+          "id": "widthfeh2",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "rem",
+          "label": "Taille du SVG",
+          "default": 20
+        },
+        {
+          "type": "paragraph",
+          "content": "ℹ️ Pour appliquer un effet > Paramètres du thème > EFFECTS"
+        },  
+{
+"type": "text",
+"id": "txt1-hd2",
+"label": {
+            "cs": "Podnadpis",
+            "da": "Underoverskrift",
+            "de": "Untertitel",
+            "en": "Subheading",
+            "es": "Subtítulo",
+            "fi": "Alaotsikko",
+            "fr": "Sous-titre",
+            "it": "Sottotitolo",
+            "ja": "小見出し",
+            "ko": "소제목",
+            "nb": "Underoverskrift",
+            "nl": "Subkop",
+            "pl": "Nagłówek podrzędny",
+            "pt-BR": "Subtítulo",
+            "pt-PT": "Subtítulo",
+            "sv": "Underrubrik",
+            "th": "หัวเรื่องย่อย",
+            "tr": "Alt başlık",
+            "vi": "Tiêu đề phụ",
+            "zh-CN": "副标题",
+            "zh-TW": "子標題"
+}
+},
+{
+"type": "checkbox",
+"id": "par1_showbutton",
+"label": {
+        "cs": "Tlačítko Zobrazit",
+        "da": "Vis-knap",
+        "de": "Zeigen Sie die Schaltfläche",
+        "en": "Show button",
+        "es": "Mostrar botón",
+        "fi": "Näytä-painike",
+        "fr": "Afficher le button",
+        "it": "Mostra pulsante",
+        "ja": "表示ボタン",
+        "ko": "버튼 표시",
+        "nb": "Vis-knapp",
+        "nl": "Toon knop",
+        "pl": "Pokaż przycisk",
+        "pt-BR": "Mostrar botão",
+        "pt-PT": "Mostrar botão",
+        "sv": "Visa-knapp",
+        "th": "แสดงปุ่ม",
+        "tr": "Düğmeyi göster",
+        "vi": "Hiển thị nút",
+        "zh-CN": "显示按钮",
+        "zh-TW": "顯示按鈕"
+},
+"default": false
+},
+        {
+          "type": "checkbox",
+          "id": "button_style_secondary_1",
+          "default": false,
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_1.label"
+        },
+{
+"type": "text",
+"id": "par1_button_label",
+"label": {
+            "cs": "Text tlačítka",
+            "da": "Knaptekst",
+            "de": "Button-Name",
+            "en": "Button label",
+            "es": "Etiqueta de botón",
+            "fi": "Tekstipainike",
+            "fr": "Texte du bouton",
+            "it": "Etichetta pulsante",
+            "ja": "ボタンのラベル",
+            "ko": "버튼 레이블",
+            "nb": "Knappetikett",
+            "nl": "Knoplabel",
+            "pl": "Przycisk z etykietą",
+            "pt-BR": "Etiqueta de botão",
+            "pt-PT": "Etiqueta do botão",
+            "sv": "Knappetikett",
+            "th": "ป้ายกำกับปุ่ม",
+            "tr": "Düğme etiketi",
+            "vi": "Nhãn nút",
+            "zh-CN": "按钮标签",
+            "zh-TW": "按鈕標籤"
+}
+},
+{
+"type": "url",
+"id": "par1_button_link",
+"label": {
+            "cs": "Tlačítkový odkaz",
+            "da": "Knaplink",
+            "de": "Button-Link",
+            "en": "Button link",
+            "es": "Enlace de la diapositiva",
+            "fi": "Painikelinkki",
+            "fr": "Lien du bouton",
+            "it": "Link slide",
+            "ja": "ボタンのリンク",
+            "ko": "버튼 링크",
+            "nb": "Kobling for knapp",
+            "nl": "Knoplink",
+            "pl": "Link przycisku",
+            "pt-BR": "Link do slide",
+            "pt-PT": "Ligação do botão",
+            "sv": "Knapplänk",
+            "th": "ลิงก์ปุ่ม",
+            "tr": "Düğme bağlantısı",
+            "vi": "Liên kết trên nút",
+            "zh-CN": "按钮链接",
+            "zh-TW": "按鈕連結"
+}
+}
+]
+}
+],
+"presets": [
+{
+"name": {
+        "cs": "Paralaxa",
+        "da": "Parallaks",
+        "de": "Parallaxe",
+        "en": "Parallax",
+        "es": "Paralaje",
+        "fi": "Parallaksi",
+        "fr": "Parallaxe",
+        "it": "Parallasse",
+        "ja": "視差",
+        "ko": "시차",
+        "nb": "Parallaks",
+        "nl": "Parallax",
+        "pl": "Paralaksa",
+        "pt-BR": "Paralaxe",
+        "pt-PT": "Paralaxe",
+        "sv": "Parallax",
+        "th": "พารัลแลกซ์",
+        "tr": "Paralaks",
+        "vi": "Thị sai",
+        "zh-CN": "视差",
+        "zh-TW": "視差"
+},
+"category": {
+        "cs": "Obrázek",
+        "da": "Billede",
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fi": "Kuva",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "ko": "이미지",
+        "nb": "Bilde",
+        "nl": "Afbeelding",
+        "pl": "Obraz",
+        "pt-BR": "Imagem",
+        "pt-PT": "Imagem",
+        "sv": "Bild",
+        "th": "รูปภาพ",
+        "tr": "Görsel",
+        "vi": "Hình ảnh",
+        "zh-CN": "图片",
+        "zh-TW": "圖片"    
+},
+      "blocks": [
+        {
+          "type": "text"
+        }
+      ]
+}
+]
+}
+{% endschema %}

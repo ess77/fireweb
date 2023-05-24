@@ -1,0 +1,101 @@
+{
+    "type": "header",
+    "name": "Groupe d'en-tête",
+    "sections": {
+        "announcement-bar": {
+            "type": "announcement-bar",
+            "blocks": {
+                "bf965d5e-947d-4402-895f-8f0bec78ba65": {
+                    "type": "message",
+                    "settings": {
+                        "text": "🚀 Bienvenue sur le Thème Fireweb",
+                        "flash_band_enable": false,
+                        "url": "#",
+                        "show_icon_annonce": false
+                    }
+                },
+                "294c3aeb-0744-419f-8bea-bad845f34b8a": {
+                    "type": "message",
+                    "settings": {
+                        "text": "Annoncez quelque chose ici",
+                        "flash_band_enable": false,
+                        "url": "",
+                        "show_icon_annonce": false
+                    }
+                }
+            },
+            "block_order": ["bf965d5e-947d-4402-895f-8f0bec78ba65", "294c3aeb-0744-419f-8bea-bad845f34b8a"],
+            "settings": {
+                "enable_sticky": false,
+                "text_size": "text-base",
+                "navigation_mode": "scrolling",
+                "scrolling_speed": 30,
+                "background": "#f56900",
+                "text_color": "#ffffff"
+            }
+        },
+        "header": {
+            "type": "header",
+            "blocks": {
+                "9a7f5c09-3fda-4f14-a936-232eaad8f387": {
+                    "type": "button",
+                    "settings": {
+                        "button_label": "Commander",
+                        "button_link": "",
+                        "button_style_secondary": true,
+                        "offdesk-bloc": false,
+                        "offmob-bloc": false
+                    }
+                },
+                "65f417f3-ce1d-4bdb-8b86-b9377c92358a": {
+                    "type": "notification",
+                    "settings": {
+                        "notif_text": "Nouveauté : Produit",
+                        "notif_link": "",
+                        "offdesk-bloc": false,
+                        "offmob-bloc": false
+                    }
+                }
+            },
+            "block_order": ["9a7f5c09-3fda-4f14-a936-232eaad8f387", "65f417f3-ce1d-4bdb-8b86-b9377c92358a"],
+            "custom_css": [],
+            "settings": {
+                "sticky_header_type": "on-scroll-up",
+                "container": "container",
+                "color_scheme": "inverse",
+                "style_bordure": "ombrage",
+                "logo_svg": "<svg version=\"1.0\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" style=\"filter: invert(41%) sepia(100%) saturate(584%) hue-rotate(162deg) brightness(99%) contrast(107%);\" width=\"93.000000pt\" height=\"96.000000pt\" viewBox=\"0 0 93.000000 96.000000\"  preserveAspectRatio=\"xMidYMid meet\"> <g transform=\"translate(0.000000,96.000000) scale(0.100000,-0.100000)\" fill=\"#000000\" stroke=\"none\"> <path d=\"M315 922 c-107 -37 -203 -120 -259 -222 -32 -58 -24 -87 25 -97 28 -5 29 -7 29 -69 l0 -64 -41 21 c-23 11 -44 29 -46 40 -8 28 -21 14 -15 -17 5 -27 53 -64 83 -64 9 0 24 -9 33 -19 16 -18 29 -19 143 -15 68 3 130 1 136 -4 7 -5 36 -12 64 -15 137 -16 268 -77 293 -137 12 -28 11 -38 -8 -81 -12 -28 -16 -49 -10 -49 6 0 3 -10 -8 -22 l-19 -22 27 20 c14 10 22 21 17 22 -5 2 7 22 27 44 72 80 84 165 34 239 -16 24 -34 45 -40 45 -5 1 -14 2 -18 3 -5 0 -7 14 -4 30 4 32 -21 55 -93 85 -59 25 -77 44 -64 69 10 17 18 19 75 14 48 -3 64 -1 64 8 0 14 -43 25 -96 25 -18 0 -36 5 -39 10 -3 6 -21 10 -38 10 -18 0 -48 5 -67 10 -19 6 -113 15 -207 22 -180 12 -193 17 -153 53 26 23 107 28 267 16 198 -16 312 -51 409 -129 31 -24 60 -59 74 -87 26 -54 38 -53 19 2 -17 52 -101 131 -179 169 -100 49 -210 68 -387 69 -84 0 -153 1 -153 2 0 15 64 34 142 44 165 19 325 -7 431 -72 26 -16 47 -25 47 -20 0 21 -116 81 -189 97 -79 18 -209 23 -296 11 l-50 -7 40 17 c29 12 72 17 162 17 66 1 116 4 110 8 -24 15 -220 8 -272 -10z m-65 -207 c63 -3 169 -12 235 -19 l120 -12 -28 -18 c-32 -22 -37 -66 -9 -81 10 -6 45 -23 76 -39 64 -32 74 -46 58 -82 -10 -20 -19 -24 -57 -24 -26 0 -55 5 -66 10 -23 13 -40 5 -32 -15 7 -21 150 -20 177 0 16 12 22 11 48 -8 77 -57 79 -162 4 -252 l-25 -30 21 51 21 52 -27 47 c-23 38 -40 52 -89 76 -34 16 -71 29 -82 29 -10 0 -39 8 -63 17 -35 13 -48 14 -63 5 -10 -7 -27 -12 -36 -11 -14 0 -15 2 -3 6 100 38 90 114 -20 151 -89 31 -99 92 -14 92 25 0 54 -5 64 -10 21 -11 33 -1 20 20 -11 18 -120 19 -154 1 -16 -9 -26 -23 -26 -36 0 -12 -2 -24 -5 -27 -5 -5 -147 11 -154 18 -2 2 2 10 9 19 9 10 31 15 71 15 33 0 59 4 59 10 0 6 -30 10 -69 10 -63 0 -71 -2 -90 -26 -38 -48 -76 -7 -48 52 14 29 20 33 39 25 13 -5 75 -12 138 -16z m17 -141 c12 -2 23 1 25 8 3 8 13 5 32 -9 15 -12 40 -25 56 -28 17 -4 30 -10 30 -15 0 -4 9 -10 20 -13 22 -6 26 -28 10 -58 -13 -23 -30 -23 -186 -7 l-114 12 0 38 0 38 56 0 c34 0 53 4 49 10 -3 6 -28 10 -56 10 -37 0 -49 4 -49 15 0 13 9 15 53 10 28 -4 62 -8 74 -11z\"\/> <path d=\"M385 591 c11 -6 58 -23 105 -39 47 -15 113 -38 147 -49 65 -22 81 -10 20 16 -17 8 -45 19 -62 26 -43 19 -94 33 -145 40 -25 4 -54 8 -65 11 -20 4 -20 4 0 -5z\"\/> <path d=\"M672 640 c35 -10 103 -58 154 -107 61 -59 75 -131 50 -243 -4 -17 -1 -14 10 10 57 120 -6 270 -138 330 -24 11 -56 19 -73 19 l-30 -1 27 -8z\"\/> <path d=\"M14 370 c4 -14 10 -36 13 -50 9 -40 71 -131 122 -180 126 -122 349 -162 494 -89 62 32 77 54 77 114 0 82 -118 126 -371 140 -181 9 -272 29 -318 69 l-24 21 7 -25z m134 -69 c32 -9 104 -17 255 -26 85 -5 159 -15 172 -24 6 -4 28 -13 50 -20 42 -14 75 -42 75 -63 0 -26 -39 -76 -72 -93 -57 -30 -155 -44 -223 -33 -33 6 -67 13 -75 16 -8 3 -17 6 -20 7 -23 7 -80 40 -80 47 0 4 -9 8 -21 8 -11 0 -18 4 -14 9 3 5 -4 12 -15 16 -11 3 -20 13 -20 21 0 8 -9 18 -21 22 -11 5 -21 12 -21 17 0 6 -13 29 -29 52 -16 23 -29 44 -29 47 0 9 52 7 88 -3z\"\/> <\/g> <\/svg>",
+                "logo_width": 75,
+                "menu": "main-menu",
+                "menu_type_desktop": "dropdown",
+                "header_majuscule-menu": true,
+                "header_bottom_menu": true,
+                "header_animation_hover": true,
+                "header_style_hover": "animation",
+                "header_type_animation": "animation-1",
+                "transparent_header": false,
+                "margin_bottom": 0,
+                "padding_top": 0,
+                "padding_bottom": 0,
+                "logo_position": "middle-left",
+                "menu_position": "center",
+                "search_style": "icon",
+                "mega-first-desk": true,
+                "show_icon_search": true,
+                "show_icon_account": false,
+                "show_icon_wishlist": false,
+                "show_icon_notif": false,
+                "offdesk": false,
+                "color_scheme_btn_menu": "entete",
+                "padding_mobile": 15,
+                "mega-first-mob": true,
+                "show_search_drawer": true,
+                "search_modal_drawer": false,
+                "show_icon_wishlist_mobile": false,
+                "show_icon_notif_mobile": false,
+                "offmob": false
+            }
+        }
+    },
+    "order": ["announcement-bar", "header"]
+}

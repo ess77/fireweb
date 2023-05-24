@@ -1,0 +1,119 @@
+/*
+    Carosuel
+*/
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    transition: all .2s ease-out;
+    background-image: unset;
+    display: inline-block;
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+button:hover .carousel-control-prev-icon {
+    transform: translateX(-2px);
+    transform: scale(1.2);
+} 
+
+.carousel-control-prev-icon svg {
+    color: rgba(var(--color-button),var(--alpha-button-background));
+    transform: rotate(180deg);
+    width: 3.5rem;
+    height: 3.5rem;
+    display: inline-block;
+}
+
+button:hover .carousel-control-next-icon {
+    transform: translateX(2px);
+    transform: scale(1.2);
+} 
+
+.carousel-control-next-icon svg {
+    color: rgba(var(--color-button),var(--alpha-button-background));
+    transform: rotate(0deg);
+    width: 3.5rem;
+    height: 3.5rem;
+    display: inline-block;
+}
+  
+.carousel-indicators {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    left: 0;
+    z-index: 3;
+}
+
+.carousel-indicators [data-bs-target] {
+    margin-right: 6px;
+    margin-left: 6px;
+    border: 1px solid #fff;
+    background-color: rgba(var(--color-button),var(--alpha-button-background));
+    transition: all .2s ease-out;
+}
+
+.carousel-indicators [data-bs-target].active {
+    transform: scale(1.4);
+}
+  
+.carousel-indicators-circles .carousel-indicators [data-bs-target] {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background-color: rgba(var(--color-button),var(--alpha-button-background));
+    transition: all .2s ease-out;
+}
+
+.carousel-indicators-circles .carousel-indicators [data-bs-target].active {
+    transform: scale(1.4);
+}
+
+.carousel-ken-burns .carousel-item {
+    overflow: hidden;
+}
+
+.carousel-ken-burns .carousel-item.active img {
+    animation: carousel_ken_burns 2s ease-out both;
+}
+
+@keyframes carousel_ken_burns {
+    0% {
+        transform: scale(1);
+    }
+    10% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.carousel-item-blur {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.carousel-item-img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+  
+.carousel-caption .subtitle {
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+}
+
+.carousel-caption .btn {
+    flex-shrink: 0;
+}
+
