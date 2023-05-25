@@ -1131,9 +1131,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
       document.querySelectorAll('.button-add-remove-wishlist').forEach((btn) => {
           const productHandle = btn.closest('[data-product-handle]')?.dataset.productHandle
 
-          if (!productHandle?.length) {
-              console.log('%c You have not correctly implemented the Wishlist changes. Please contact us at Fireweb.fr', 'color: red')
-          }
+          // if (!productHandle?.length) {
+          //     console.log('%c You have not correctly implemented the Wishlist changes. Please contact us at Fireweb.fr', 'color: red')
+          // }
 
           const isWishlisted = wishlist.some((elem) => elem.handle === productHandle)
 
