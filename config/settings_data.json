@@ -128,7 +128,7 @@
         "activate_wishlist": true,
         "wishlist_button_style_secondary": false,
         "cooks": true,
-        "cookstxt": "Nous utilisons des cookies pour vous garantir la meilleure expérience possible sur notre site web...\n<br><br>\nC'est OK pour vous ?",
+        "cookstxt": "Nous utilisons des cookies afin d'améliorer votre expérience sur notre site web...\n<br><br>\nAccepter nos cookies ?",
         "url_refuse": "",
         "cart_type": "drawer",
         "show_vendor": true,
@@ -146,7 +146,7 @@
         "color_checkout_svg": "#e22120",
         "show_cart_note": true,
         "footer_band_enable": true,
-        "m_footer_band_text": "+12,000 Clients Satisfait",
+        "m_footer_band_text": "+1000 Clients Satisfaits",
         "footer_band_link": "#",
         "footer_band_bg_color": "#1d1d1f",
         "footer_band_text_color": "#ffffff",
@@ -245,7 +245,7 @@
                         "type": "newsletter",
                         "settings": {
                             "newsletter_heading": "S'abonner à notre newsletter",
-                            "text": "<p>Inscrivez-vous et recevez 10% de remise sur votre première commande 👇<\/p>",
+                            "text": "<p>Inscrivez-vous et recevez 15% de remise sur votre première commande 👇<\/p>",
                             "newsletter_enable": false,
                             "code_grand_formulaire": "",
                             "show_social": true,
@@ -274,7 +274,7 @@
                     "show_powered": true,
                     "margin_top": 0,
                     "footer_band_enable": true,
-                    "m_footer_band_text": "Votre texte ici pour la bande de pied de page",
+                    "m_footer_band_text": "Votre texte de pied de page",
                     "footer_band_link": "#",
                     "flash_band_enable": true,
                     "footer_band_bg_color": "#1d1d1f",
@@ -316,7 +316,7 @@
                         "settings": {
                             "text_color": "#000000",
                             "background_color": "#ffffff",
-                            "text": "Votre panier est réservé pendant",
+                            "text": "Votre panier est valable pendant",
                             "textbefore": "minutes !",
                             "taille_text": 1.2,
                             "clockdiv_color": "#ff0000",
@@ -328,7 +328,7 @@
                         "type": "annonce",
                         "settings": {
                             "background_color": "#121212",
-                            "text": "<p><strong>Exemple :<\/strong> OFFRE irrésistible <strong>-50%<\/strong><\/p>",
+                            "text": "<p><strong>Exemple :<\/strong> OFFRE alléchante à <strong>-35%<\/strong><\/p>",
                             "color_text": "#f56900"
                         }
                     },
@@ -350,7 +350,7 @@
                 "block_order": ["44c88921-b657-4e78-b0a3-78e4ab354744", "d5ae5971-230e-4637-9ce7-f7b0203f3963", "6ea6775a-b508-4499-91b8-b05e7b45c13a", "eeb8e22d-851a-454b-9206-f1ecfd88ec35"],
                 "settings": {
                     "show_cart_note": false,
-                    "title_show_cart_note": "Instructions concernant la commande",
+                    "title_show_cart_note": "Instructions à votre commande",
                     "horizontal_margin": 20,
                     "vertical_margin": 20
                 }
@@ -361,7 +361,7 @@
                     "bf965d5e-947d-4402-895f-8f0bec78ba65": {
                         "type": "message",
                         "settings": {
-                            "text": "🚀 Bienvenue sur le Thème Fireweb",
+                            "text": "Bienvenue sur le Thème Fireweb",
                             "flash_band_enable": true,
                             "url": "#",
                             "show_icon_annonce": false
@@ -519,8 +519,8 @@
                         "footer-2": {
                             "type": "text",
                             "settings": {
-                                "heading": "Our mission",
-                                "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+                                "heading": "Nos Objectifs",
+                                "subtext": "<p>Partage d'information de contact, details, et contenu de marque avec vos clients.<\/p>"
                             }
                         }
                     },
